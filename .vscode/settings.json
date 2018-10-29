@@ -1,0 +1,7 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}"
+    ],
+    "appService.deploySubpath": "",
+    "appService.defaultWebAppToDeploy": "/subscriptions/ed713b2c-27bf-4c65-b832-c8d71f857d79/resourceGroups/ProjetoWebSaude/providers/Microsoft.Web/sites/ProjetoWebSaude"
+}
