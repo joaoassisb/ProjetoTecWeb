@@ -6,7 +6,8 @@
     "license": "MIT",
     "author": "Microsoft",
     "scripts": {
-        "build": "node index.js"
+        "start": "node index.js",
+        "build": "node build.js",
     },
     "dependencies": {
         "cookie-parser": "^1.4.3",
