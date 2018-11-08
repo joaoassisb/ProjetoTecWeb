@@ -3,13 +3,17 @@ html {
     min-height: 100%;
   }
   .titulo {
-    color: black;
+    color: #7D7D7D;
     text-align: center;
     margin-top: 30px; 
   }
+  .sair {
+    color: #fff;
+    margin-left: 34px;
+  }
   body {
     overflow-x: hidden;
-    font-family: lato;
+    font-family: lato; 
     background-color: #EEEEEE;
   } 
   
@@ -45,7 +49,7 @@ html {
     padding: 6px 10px;
     margin: 5px 0px 0;
     font-size: 1rem;
-    color: #212529;
+    color: #56baed;
     text-align: left;
     list-style: none;
     background-color: #fff;
@@ -335,22 +339,6 @@ html {
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
-    background: #262625;
-    height: 80vh;
-  }
-  
-  .navbar-nav2 {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-    background: #262625;
-    height: 18vh;
+    background: #56baed;
   }
 }
