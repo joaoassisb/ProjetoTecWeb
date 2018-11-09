@@ -1,9 +1,9 @@
 "use strict";
 
-const server = require("./src/server");
+const server = require("./src/server.js");
+const app = server.app;
+const PORT = process.env.PORT || server.port;
 
-const PORT = process.env.PORT || 9000;
-
-server.listen(PORT, () => {
-  console.info(`Server listening at port ${PORT}`);
+app.listen(PORT, () => {
+  console.info("Server listening on port %d in %s mode", PORT, app.get("env"));
 });
