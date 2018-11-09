@@ -7,9 +7,16 @@ angular
   })
   .component("cadastro", {
     templateUrl: "cadastro.html",
-    controller() {
-      this.$onInit = () => {
-        console.log("Teste");
+    controller($http, $location) {
+      this.cadastrar = () => {
+        $http
+          .post("/api/usuarios", this.usuario)
+          .then(usuario => {
+            $location.path("/login");
+          })
+          .catch(err => {
+            this.erroCadastro = true;
+          });
       };
     }
   });

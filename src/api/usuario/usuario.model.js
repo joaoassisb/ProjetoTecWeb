@@ -1,6 +1,6 @@
 "use strict";
 
-const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const mongoose = require("mongoose");
 
 const UsuarioSchema = new mongoose.Schema({
@@ -29,11 +29,6 @@ const UsuarioSchema = new mongoose.Schema({
   salt: {
     type: String,
     select: false
-  },
-  blocked: {
-    type: Boolean,
-    default: false,
-    toCSV: true
   },
   registeredAt: {
     type: Date,
