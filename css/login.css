@@ -2,6 +2,12 @@ html {
     background-color: #f8f9fa; 
   }
   
+  .alert-danger{
+    width: 65%;
+    margin: 0 auto;
+    margin-top: 15px;
+  }
+
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
@@ -111,7 +117,7 @@ html {
     transform: scale(0.95);
   }
   
-  input[type=text] {
+  input[type=text], input[type=password] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;

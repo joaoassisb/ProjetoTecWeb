@@ -1,7 +1,8 @@
 "use strict";
 
 import "./app.module";
-import "./login/login";
+import "./login/auth";
+import "./cadastro/cadastro";
 
 const m = angular.module("app");
 

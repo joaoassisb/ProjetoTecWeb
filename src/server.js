@@ -7,8 +7,6 @@ const morgan = require("morgan");
 const compression = require("compression");
 const express = require("express");
 const bodyParser = require("body-parser");
-const passport = require("passport");
-const session = require("express-session");
 
 const mongoose = require("mongoose");
 mongoose.Promise = Promise;
@@ -18,6 +16,8 @@ mongoose.connect(url);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Conexão falhou"));
+
+const api = require("./api/api");
 
 const app = express();
 
@@ -39,20 +39,7 @@ app.use(express.static("node_modules/angular"));
 app.use(express.static("node_modules/angular-route"));
 app.use(express.static("node_modules/angular-input-masks/releases"));
 
-app.use(
-  session({
-    secret: "oidfsnfiuhe8r32r3244y23ryvdwqg3dewjifp322",
-    resave: false,
-    saveUninitialized: false
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-require("./passport.js")(passport);
-require("./api/auth.api.js")(app, passport);
-app.use("/api/", require("./api/usuario/usuario.routes.js"));
+app.use("/api", api);
 
 module.exports = {
   app: app,
