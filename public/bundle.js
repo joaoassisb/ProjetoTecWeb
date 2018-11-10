@@ -23,7 +23,7 @@
     })
     .component("login", {
       templateUrl: "login.html",
-      controller(Auth, $location) {
+      controller(Auth, $location, $http) {
         this.reset = () => {
           this.loginInvalido = false;
         };
@@ -37,10 +37,6 @@
               this.loginInvalido = true;
             }
           );
-        };
-
-        this.loginFacebook = () => {
-          console.log("FACEBOOK");
         };
 
         this.cadastrar = () => {

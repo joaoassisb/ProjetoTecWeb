@@ -270,4 +270,9 @@ html {
   #facebook { 
       background-color: #337ab7 ;
       margin-top: 0% ; 
+      -webkit-appearance: initial;
+  }
+  #facebook:hover { 
+    text-decoration: none;
+    color: white;
   }

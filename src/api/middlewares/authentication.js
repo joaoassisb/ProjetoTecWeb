@@ -3,6 +3,7 @@
 const _ = require("lodash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const FacebookStrategy = require("passport-facebook");
 const mongoose = require("mongoose");
 const createError = require("http-errors");
 
@@ -44,6 +45,47 @@ function setupPassport(userModelName, strategyName) {
       }
     )
   );
+  passport.use(
+    "facebook",
+    new FacebookStrategy(
+      {
+        clientID: "1985663121501347",
+        clientSecret: "b7f67873296d80e21a4b370ca2d40b6b",
+        callbackURL: "http://localhost:9000/api/login/facebook/callback",
+        profileFields: ["id", "email", "displayName"]
+      },
+      (accessToken, refreshToken, profile, done) => {
+        const userModelName = "Usuario";
+        const UserModel = mongoose.model("Usuario");
+
+        UserModel.findOne({ "social.facebook": profile.id }, (err, user) => {
+          if (err) {
+            return done(err);
+          }
+
+          if (user) {
+            return done(null, user);
+          }
+
+          const novoUsuario = new UserModel({
+            name: profile.displayName,
+            social: {
+              facebook: profile.id
+            },
+            email: profile.emails[0].value
+          });
+
+          return novoUsuario.save((err, novoUsuario) => {
+            if (err) {
+              done(err);
+            }
+
+            return done(null, novoUsuario);
+          });
+        });
+      }
+    )
+  );
 }
 
 passport.serializeUser((user, next) => {
@@ -56,13 +98,7 @@ passport.serializeUser((user, next) => {
 });
 
 passport.deserializeUser((key, next) => {
-  let UserModel;
-
-  try {
-    UserModel = mongoose.model(key.userModelName);
-  } catch (e) {
-    return next(e);
-  }
+  let UserModel = mongoose.model("Usuario");
 
   UserModel.findById(key.userId)
     .then(user => {
@@ -97,6 +133,16 @@ module.exports = function(app, options) {
     },
     (req, res) => {
       res.sendStatus(200);
+    }
+  );
+
+  app.get("/login/facebook", passport.authenticate("facebook"));
+
+  app.get(
+    "/login/facebook/callback",
+    passport.authenticate("facebook", { failureRedirect: "/#!/login" }),
+    (req, res) => {
+      res.redirect("/#!/home");
     }
   );
 

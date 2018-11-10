@@ -37,6 +37,9 @@ const UsuarioSchema = new mongoose.Schema({
   lastLogin: {
     type: Date,
     toCSV: true
+  },
+  social: {
+    facebook: String
   }
 });
 
