@@ -49,9 +49,10 @@ function setupPassport(userModelName, strategyName) {
     "facebook",
     new FacebookStrategy(
       {
-        clientID: "1985663121501347",
-        clientSecret: "b7f67873296d80e21a4b370ca2d40b6b",
-        callbackURL: "http://localhost:9000/api/login/facebook/callback",
+        clientID: "984255598439076",
+        clientSecret: "d80a8ad8c44abc202f8b3ba659b3e21b",
+        callbackURL:
+          "https://projetowebsaude.azurewebsites.net/api/login/facebook/callback",
         profileFields: ["id", "email", "displayName"]
       },
       (accessToken, refreshToken, profile, done) => {
