@@ -11,8 +11,12 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 mongoose.Promise = Promise;
 
-const url = "mongodb://localhost/projeto-tecweb";
-mongoose.connect(url);
+const url =
+  "mongodb://db-websaude:xwIOPHqJWJZaA9vTleO4dyq2tDCVh37g0r5PmSNhzW8OcGlHRGrNLWtwTmO9OhuxL8aCfYH1XgdvZO0Mba3f7g==@db-websaude.documents.azure.com:10255/mean-dev?ssl=true&sslverifycertificate=false";
+mongoose.connect(
+  url,
+  { useNewUrlParser: true }
+);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Conexão falhou"));

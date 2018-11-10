@@ -34,7 +34,7 @@ module.exports = {
   create(req, res, next) {
     const data = filterUnsafeFields(req.body);
     const usuario = new Usuario(data);
-
+    console.log(usuario);
     usuario
       .save()
       .then(() => {

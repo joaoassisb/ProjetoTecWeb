@@ -1,7 +1,10 @@
 html {
     background-color: #f8f9fa; 
   }
-  
+  .icone-fb{
+    margin-right: 10px 
+  }
+
   .alert-danger{
     width: 65%;
     margin: 0 auto;
@@ -82,7 +85,7 @@ html {
   
   /* FORM TYPOGRAPHY*/
   
-  input[type=button], input[type=submit], input[type=reset] {
+  input[type=button], input[type=submit], input[type=reset], button[type="button"] {
     background-color: #56baed;
     border: none;
     color: white;

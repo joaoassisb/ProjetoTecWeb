@@ -29,9 +29,9 @@
         };
 
         this.login = () => {
-          Auth.login(this.credenciais).then(
+          Auth.login(this.usuario).then(
             () => {
-              $location.path("/");
+              $location.path("/home");
             },
             () => {
               this.loginInvalido = true;
@@ -139,6 +139,18 @@
             });
         };
       }
+    });
+
+  angular
+    .module("app")
+    .config($routeProvider => {
+      $routeProvider.when("/home", {
+        template: "<home>"
+      });
+    })
+    .component("home", {
+      templateUrl: "dashboard.html",
+      controller() {}
     });
 
   const m$1 = angular.module("app");

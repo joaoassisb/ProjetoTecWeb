@@ -13,9 +13,9 @@ angular
       };
 
       this.login = () => {
-        Auth.login(this.credenciais).then(
+        Auth.login(this.usuario).then(
           () => {
-            $location.path("/");
+            $location.path("/home");
           },
           () => {
             this.loginInvalido = true;
