@@ -85,7 +85,7 @@ html {
   
   /* FORM TYPOGRAPHY*/
   
-  input[type=button], input[type=submit], input[type=reset], button[type="button"] {
+  .btn-azul-claro {
     background-color: #56baed;
     border: none;
     color: white;
@@ -108,7 +108,7 @@ html {
     transition: all 0.3s ease-in-out;
   }
   
-  input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+  .btn-azul-claro:hover  {
     background-color: #39ace7;
   }
   

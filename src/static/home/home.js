@@ -6,6 +6,6 @@ angular
     });
   })
   .component("home", {
-    templateUrl: "dashboard.html",
+    templateUrl: "home.html",
     controller() {}
   });

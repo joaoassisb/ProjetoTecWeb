@@ -21,11 +21,14 @@ routes.use(bodyParser.json());
 routes.use(cookieParser());
 
 routes.use(sessionMiddleware(session));
+
 authMiddleware(routes, {
   userModelName: "Usuario"
 });
 
-// routes.use(autho.requiresLocalLogin);
+routes.use(require(`${__dirname}/usuario/usuario.routes.js`));
+
+routes.use(autho.requiresLocalLogin);
 
 glob.sync(`${__dirname}/**/*.routes.js`).forEach(filename => {
   routes.use(require(filename));

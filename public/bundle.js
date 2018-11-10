@@ -149,8 +149,31 @@
       });
     })
     .component("home", {
-      templateUrl: "dashboard.html",
+      templateUrl: "home.html",
       controller() {}
+    });
+
+  angular
+    .module("app")
+    .config($routeProvider => {
+      $routeProvider
+        .when("/perfil", {
+          template: "<perfil>"
+        })
+        .when("/resultados", {
+          template: "<resultados>"
+        })
+        .when("/refeicoes", {
+          template: "<refeicoes>"
+        });
+    })
+    .component("navbar", {
+      templateUrl: "navbar.html",
+      controller($location) {
+        this.navegar = componentName => {
+          $location.path(componentName);
+        };
+      }
     });
 
   const m$1 = angular.module("app");
