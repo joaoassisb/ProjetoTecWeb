@@ -1,0 +1,78 @@
+<navbar></navbar>
+<div class="container mt-5">
+    <div class="text-center" ng-if="$ctrl.isLoading">
+        <h2>
+            Carregando
+            <i class="fas fa-spinner fa-pulse ml-2"></i>
+        </h2>
+    </div>
+
+    <div class="card" ng-if="!$ctrl.isLoading">
+        <div class="card-header">
+            <div class="d-flex">
+                <h2 class="card-title">
+                    {{$ctrl.modoEdicao ? 'Editar Perfil': 'Perfil de Usuário'}} 
+                </h2>
+                <button class="btn btn-info ml-auto" ng-click="$ctrl.editar()" ng-if="!$ctrl.modoEdicao">Editar</button> 
+            </div>
+        </div>
+        <div class="card-body" ng-if="$ctrl.modoEdicao">
+            <div class="card-text">
+                <form >
+                    <div class="form-group">
+                        <label for="idade" class="control-label">Idade</label>
+                        <input type="number" ng-model="$ctrl.perfil.idade" id="idade" class="form-control" placeholder="ex: 25">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="altura" class="control-label">Altura (cm)</label>
+                        <input type="number" ng-model="$ctrl.perfil.altura" id="altura" class="form-control" placeholder="ex: 175">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="peso" class="control-label">Peso (kg)</label>
+                        <input type="number" ng-model="$ctrl.perfil.peso" id="peso" class="form-control" placeholder="ex: 80">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="genero" class="control-label">Gênero</label>
+                        <select name="genero" ng-model="$ctrl.perfil.genero" id="genero" class="form-control" ng-options="g for g in $ctrl.generos">
+                            <option value="">Selecione um gênero</option>
+                        </select> 
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="nivelAtividade" class="control-label">Nível de atividade</label>
+                        <select name="nivelAtividade" ng-model="$ctrl.perfil.nivelAtividade" id="nivelAtividade" class="form-control" ng-options="n.valor as n.label for n in $ctrl.niveis">
+                            <option value="">Selecione um nível</option>
+                        </select> 
+                    </div>
+                    
+                    <button class="btn btn-danger" ng-click="$ctrl.fecharEdicao()">Cancelar</button>
+                    <button class="btn btn-success" ng-click="$ctrl.salvar()">Salvar</button>
+                </form>
+            </div>
+        </div>
+        <div class="card-body" ng-if="!$ctrl.modoEdicao"> 
+                <div>
+                   <strong>Idade: </strong>{{$ctrl.perfil.idade || '-'}}
+                </div>
+        
+                <div>
+                    <strong>Altura: </strong>{{$ctrl.perfil.altura || '-'}}
+                </div>
+        
+                <div>
+                    <strong>Peso: </strong>{{$ctrl.perfil.peso || '-'}}
+                </div>
+        
+                <div>
+                    <strong>Gênero: </strong>{{$ctrl.perfil.genero || '-'}}
+                </div>
+        
+                <div>
+                    <strong>Nível de atividade: </strong>{{$ctrl.perfil.nivelAtividade || '-'}}
+                </div>
+            </div>
+    </div>
+</div>

@@ -25,7 +25,8 @@ module.exports = {
       .catch(next);
   },
   query(req, res, next) {
-    Usuario.find()
+    console.log(req.query);
+    Usuario.find(req.query)
       .then(usuarios => {
         res.send(usuarios);
       })

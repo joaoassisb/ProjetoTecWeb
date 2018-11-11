@@ -19,7 +19,7 @@ m.config($httpProvider => {
 
 m.service("Auth", AuthService);
 
-function AuthService($http) {
+function AuthService($http, $httpParamSerializer) {
   const observers = [];
 
   const notify = value => {
