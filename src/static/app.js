@@ -7,6 +7,8 @@ import "./home/home";
 import "./componentes/navbar";
 import "./componentes/loader";
 import "./perfil-usuario/perfil-usuario";
+import "./resultados/resultados";
+import "./refeicoes-diarias/refeicoes-diarias";
 
 const m = angular.module("app");
 

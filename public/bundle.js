@@ -217,6 +217,31 @@
             }
           ];
 
+          this.objetivos = [
+            {
+              valor: "Perder peso",
+              label: "Perder peso (Diminuir os requisitos calóricos em 20%)"
+            },
+            {
+              valor: "Perder peso lentamente",
+              label:
+                "Perder peso lentamente (Diminuir os requisitos calóricos em 10%)"
+            },
+            {
+              valor: "Manter o peso",
+              label: "Manter o peso (Não alterar os requisitos calóricos)"
+            },
+            {
+              valor: "Aumentar o peso lentamente",
+              label:
+                "Aumentar o peso lentamente (Aumentar os requisitos calóricos em 10%)"
+            },
+            {
+              valor: "Aumentar o peso",
+              label: "Aumentar o peso (Aumentar os requisitos calóricos em 20%)"
+            }
+          ];
+
           this.carregarPerfil();
         };
 
@@ -229,9 +254,10 @@
         };
 
         this.salvar = () => {
-          console.log(this.perfil);
+          this.isLoading = true;
           $http.post("/api/perfil-usuario", this.perfil).then(() => {
             this.fecharEdicao();
+            this.isLoading = false;
           });
         };
 
@@ -243,6 +269,29 @@
           this.modoEdicao = true;
         };
       }
+    });
+
+  angular
+    .module("app")
+    .config($routeProvider => {
+      $routeProvider.when("/resultados", {
+        template: "<resultados>"
+      });
+    })
+    .component("resultados", {
+      templateUrl: "resultados.html"
+    });
+
+  angular
+    .module("app")
+    .config($routeProvider => {
+      $routeProvider.when("/refeicoes", {
+        template: "<refeicoes>"
+      });
+    })
+    .component("refeicoes", {
+      templateUrl: "refeicoes.html",
+      controller() {}
     });
 
   const m$1 = angular.module("app");

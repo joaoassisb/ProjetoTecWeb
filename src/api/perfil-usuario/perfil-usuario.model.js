@@ -32,6 +32,16 @@ const PerfilUsuarioSchema = new Schema({
       "Ativo",
       "Hiperativo"
     ]
+  },
+  objetivo: {
+    type: String,
+    enum: [
+      "Perder peso",
+      "Perder peso lentamente",
+      "Manter o peso",
+      "Aumentar o peso lentamente",
+      "Aumentar o peso"
+    ]
   }
 });
 
