@@ -13,6 +13,7 @@ angular
       };
 
       this.login = () => {
+        this.isLoading = true;
         Auth.login(this.usuario).then(
           () => {
             $location.path("/home");

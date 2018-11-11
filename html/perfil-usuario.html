@@ -1,10 +1,7 @@
 <navbar></navbar>
 <div class="container mt-5">
     <div class="text-center" ng-if="$ctrl.isLoading">
-        <h2>
-            Carregando
-            <i class="fas fa-spinner fa-pulse ml-2"></i>
-        </h2>
+        <loader></loader>
     </div>
 
     <div class="card" ng-if="!$ctrl.isLoading">

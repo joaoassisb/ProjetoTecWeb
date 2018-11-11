@@ -2,11 +2,12 @@
  
 <div class="wrapper fadeInDown">
     <div id="formContent">
-        <div class="fadeIn first">
-            <h1>Projeto TecWeb</h1> 
-        </div> 
         
-        <form ng-submit="$ctrl.login()">  
+        <div class="fadeIn first">
+            <h1>WebSaúde</h1> 
+        </div> 
+
+        <form ng-submit="$ctrl.login()" ng-if="!$ctrl.isLoading">  
             <input ng-model="$ctrl.usuario.email" type="text" id="login" class="fadeIn second" name="login" placeholder="Email" required>
             <input ng-model="$ctrl.usuario.password" type="password" id="password" class="fadeIn third" name="senha" placeholder="Senha" required>
             <div class="alert alert-danger alert-dismissible" role="alert" ng-if="$ctrl.loginInvalido"> 
@@ -24,7 +25,11 @@
         </form> 
 
         <div id="formFooter">
-            <a class="underlineHover" href="" ng-click="$ctrl.cadastrar()">Cadastrar-se</a>
+            <a class="underlineHover" href="" ng-click="$ctrl.cadastrar()" ng-if="!$ctrl.isLoading">Cadastrar-se</a>
+        </div>
+
+        <div ng-if="$ctrl.isLoading">
+            <loader></loader> 
         </div>
     </div> 
 </div> 

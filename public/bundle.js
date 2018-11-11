@@ -29,6 +29,7 @@
         };
 
         this.login = () => {
+          this.isLoading = true;
           Auth.login(this.usuario).then(
             () => {
               $location.path("/home");
@@ -171,6 +172,10 @@
         };
       }
     });
+
+  angular.module("app").component("loader", {
+    templateUrl: "loader.html"
+  });
 
   angular
     .module("app")
