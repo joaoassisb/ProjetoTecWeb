@@ -58,16 +58,22 @@ function setupPassport(userModelName, strategyName) {
       (accessToken, refreshToken, profile, done) => {
         const userModelName = "Usuario";
         const UserModel = mongoose.model("Usuario");
-
+        console.log("carregando modelo de usuários");
         UserModel.findOne({ "social.facebook": profile.id }, (err, user) => {
+          console.log("busca usuários");
           if (err) {
+            console.log("erro busca usuarios");
             return done(err);
           }
 
           if (user) {
+            console.log("usuário encontrado ");
+
             return done(null, user);
           }
 
+          console.log("criar novo usuário");
+          console.log(profile);
           const novoUsuario = new UserModel({
             name: profile.displayName,
             social: {
@@ -137,7 +143,12 @@ module.exports = function(app, options) {
     }
   );
 
-  app.get("/login/facebook", passport.authenticate("facebook"));
+  app.get(
+    "/login/facebook",
+    passport.authenticate("facebook", {
+      scope: ["email"]
+    })
+  );
 
   app.get(
     "/login/facebook/callback",
