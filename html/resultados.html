@@ -1,4 +1,44 @@
+<link rel="stylesheet" href="resultados.css">
 <navbar></navbar>
-<div class="container text-center">
-    <h2>Em desenvolvimento ...</h2>
+<div class="container text-center mt-5">
+    <loader ng-if="$ctrl.isLoading"></loader>
+    
+    <div ng-if="!$ctrl.isLoading">
+       <h2>Resultados de {{$ctrl.resultados.usuario.name || '-'}}</h2>
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action" href="" ng-click="$ctrl.exibirDescricao('imc')">
+                <div class="d-flex align-items-center">
+                    <div>
+                        Índice de Massa Corporal
+                    </div>
+                    <div class="ml-auto">
+                        {{$ctrl.resultados.imc || '-'}} 
+                        <i class="fas fa-chevron-down ml-2" ng-if="!$ctrl.descricoes.imc"></i>
+                        <i class="fas fa-chevron-up ml-2" ng-if="$ctrl.descricoes.imc"></i>
+                    </div>
+                </div>
+                <div ng-if="$ctrl.descricoes.imc">
+                    <div class="card card-body mt-2 descricao-resultados" >
+                        IMC é a sigla para Índice de Massa Corporal que serve para avaliar o peso do indivíduo em relação à sua altura e assim indicar se está dentro do peso ideal, acima ou abaixo do peso desejado.
+                        Você pode utilizar a tabela abaixo para consultar o seu Índice de Massa Corporal.
+                    </div>
+                    <table class="table table-bordered table-light mt-2"> 
+                        <thead> 
+                            <tr> 
+                                <td>Resultado</td> 
+                                <td>Situação</td> 
+                            </tr> 
+                        </thead> 
+                        <tbody> 
+                            <tr ng-repeat="linha in $ctrl.linhasIMC" ng-class="{'table-active' : $ctrl.faixaIMC == $index}"> 
+                                <td>{{linha.resultado}}</td> 
+                                <td>{{linha.situacao}}</td> 
+                            </tr>  
+                        </tbody> 
+                    </table>
+                </div>  
+            </a>
+        </div>
+    </div>
 </div>
+
