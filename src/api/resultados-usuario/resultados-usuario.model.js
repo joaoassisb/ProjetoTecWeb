@@ -3,7 +3,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const { ObjectId } = mongoose.SchemaTypes;
-const createError = require("http-errors");
 
 const ResultadosSchema = new Schema({
   perfilUsuario: {
@@ -20,12 +19,7 @@ const ResultadosSchema = new Schema({
   gorduraCorporal: Number,
   taxaMetabolicaBasal: Number,
   exigenciaAgua: Number,
-  requisitosCaloricos: Number,
-  medidasCalculoGorduraCorporal: {
-    pescoco: Number,
-    cintura: Number,
-    quadril: Number
-  }
+  requisitosCaloricos: Number
 });
 
 ResultadosSchema.method({
@@ -76,7 +70,7 @@ ResultadosSchema.method({
     this.exigenciaAgua = ((35 * this.perfilUsuario.peso) / 1000).toFixed(2);
   },
   calcularGorduraCorporal() {
-    if (Object.keys(this.medidasCalculoGorduraCorporal).length === 0) {
+    if (Object.keys(this.perfilUsuario.medidas).length === 0) {
       return;
     }
     if (this.perfilUsuario.genero === "Masculino") {
@@ -84,12 +78,11 @@ ResultadosSchema.method({
         495 /
           (1.0324 -
             0.19077 *
-              Math.log(
-                10,
-                this.medidasCalculoGorduraCorporal.cintura -
-                  this.medidasCalculoGorduraCorporal.pescoco
+              Math.log10(
+                this.perfilUsuario.medidas.cintura -
+                  this.perfilUsuario.medidas.pescoco
               ) +
-            0.15456 * Math.log(10, this.perfilUsuario.altura)) -
+            0.15456 * Math.log10(this.perfilUsuario.altura)) -
         450
       ).toFixed(2);
     } else if (this.perfilUsuario.genero === "Feminino") {
@@ -97,13 +90,12 @@ ResultadosSchema.method({
         495 /
           (1.29579 -
             0.35004 *
-              Math.log(
-                10,
-                this.medidasCalculoGorduraCorporal.cintura +
-                  this.medidasCalculoGorduraCorporal.quadril -
-                  this.medidasCalculoGorduraCorporal.pescoco
+              Math.log10(
+                this.perfilUsuario.medidas.cintura +
+                  this.perfilUsuario.medidas.quadril -
+                  this.perfilUsuario.medidas.pescoco
               ) +
-            0.221 * Math.log(10, this.medidasCalculoGorduraCorporal.altura)) -
+            0.221 * Math.log10(this.perfilUsuario.medidas.altura)) -
         450
       ).toFixed(2);
     }

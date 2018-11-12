@@ -71,11 +71,13 @@ angular
         $http.get("/api/perfil-usuario").then(({ data }) => {
           this.perfil = data;
           this.isLoading = false;
+          console.log(this.perfil);
         });
       };
 
       this.salvar = () => {
         this.isLoading = true;
+        console.log(this.perfil);
         $http.post("/api/perfil-usuario", this.perfil).then(() => {
           this.fecharEdicao();
           this.isLoading = false;

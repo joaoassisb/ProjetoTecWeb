@@ -42,6 +42,11 @@ const PerfilUsuarioSchema = new Schema({
       "Aumentar o peso lentamente",
       "Aumentar o peso"
     ]
+  },
+  medidas: {
+    pescoco: Number,
+    cintura: Number,
+    quadril: Number
   }
 });
 

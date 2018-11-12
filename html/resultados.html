@@ -74,38 +74,29 @@
                 </div>
             </li>
 
-            <li class="list-group-item" href="">
+            <li class="list-group-item list-group-item-action" href="" ng-click="$ctrl.exibirDescricao('gorduraCorporal')">
                 <div class="d-flex align-items-center"> 
                     <div>
                         Gordura Corporal
                     </div>
                     <div class="ml-auto">
                         {{$ctrl.resultados.gorduraCorporal +' %' || '-'}}  
-                        <i class="fas fa-info-circle" ng-click="$ctrl.exibirDescricao('gorduraCorporal')"></i>
+                        <i class="fas fa-chevron-down ml-2" ng-if="!$ctrl.descricoes.gorduraCorporal"></i>
+                        <i class="fas fa-chevron-up ml-2" ng-if="$ctrl.descricoes.gorduraCorporal"></i>
                     </div>
                 </div>
                 <div ng-if="$ctrl.descricoes.gorduraCorporal">
-                    <div class="card card-body mt-2 descricao-resultados" >
-                        <p>Para obter um resultado mais preciso da gordura corporal é necessário realizar algumas medidas</p>
-                        <form>
-                            <div class="form-group">
-                                <label for="idade" class="control-label">Pescoço(cm)</label>
-                                <p><small>Meça a circunferência do pescoço abaixo do pomo de adão</small></p>
-                                <input type="number" ng-model="$ctrl.resultados.medidasCalculoGorduraCorporal.pescoco" id="pescoco" class="form-control" placeholder="ex: 52" required> 
-                            </div>
-                            <div class="form-group">
-                                <label for="idade" class="control-label">Cintura(cm)</label>
-                                <p><small>Meça a circunferência da sua cintura num nível horizontal a zona do umbigo para homens e na parte mais estreita para mulheres</small></p>
-                                <input type="number" ng-model="$ctrl.resultados.medidasCalculoGorduraCorporal.cintura" id="cintura" class="form-control" placeholder="ex: 75" required>
-                            </div>
-                            <div class="form-group" ng-if="$ctrl.resultados.perfilUsuario.genero==='Feminino'">
-                                <label for="idade" class="control-label">Quadril(cm)</label>
-                                <p><small>Meça a circunferência do quadril na zona horizontal mais larga</small></p> 
-                                <input type="number" ng-model="$ctrl.resultados.medidasCalculoGorduraCorporal.quadril" id="ancas" class="form-control" placeholder="ex: 82" required> 
-                            </div>
-                            <button class="btn btn-danger">Cancelar</button>  
-                            <button class="btn btn-success" ng-click="$ctrl.calcularGorduraCorporal($event)">Salvar</button>
-                        </form>
+                    <div class="card card-body mt-2 descricao-resultados">
+                        <strong>
+                            Este cálculo é apenas uma estimativa, para obter o resultado mais preciso é necessário instrumentos específicos e uma visita a um médico.
+                        </strong>
+                        O seu percentual de gordura corporal é simplesmente a porcentagem de gordura 
+                        que o seu corpo tem. O peso corporal total inclui os valores da gordura 
+                        corporal e da massa magra (músculos, orgãos, sangue, e tudo mais).
+                        Uma certa quantidade de gordura é essencial para o organismo desempenhar 
+                        funções vitais. Por isso, uma pessoa nunca poderá acabar com toda gordura do 
+                        corpo mas sim abaixar o percentual para que o corpo fique com formas 
+                        torneadas e os músculos comecem a aparecer.
                     </div>
                 </div>
             </li> 

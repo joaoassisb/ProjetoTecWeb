@@ -51,6 +51,25 @@
                             <option value="">Selecione um objetivo</option> 
                         </select>  
                     </div>
+
+                    <fieldset class=form-group>
+                        <legend>Medidas</legend>
+                        <div class="form-group">
+                            <label for="pescoco" class="control-label">Pescoço(cm)</label>
+                            <p><small>Meça a circunferência do pescoço abaixo do pomo de adão</small></p>
+                            <input type="number" ng-model="$ctrl.perfil.medidas.pescoco" id="pescoco" class="form-control" placeholder="ex: 52" required> 
+                        </div>
+                            <div class="form-group">
+                                <label for="cintura" class="control-label">Cintura(cm)</label>
+                                <p><small>Meça a circunferência da sua cintura num nível horizontal a zona do umbigo para homens e na parte mais estreita para mulheres</small></p>
+                                <input type="number" ng-model="$ctrl.perfil.medidas.cintura" id="cintura" class="form-control" placeholder="ex: 75" required>
+                            </div>  
+                            <div class="form-group" ng-if="$ctrl.perfil.genero==='Feminino'">
+                                <label for="quadril" class="control-label">Quadril(cm)</label>
+                                <p><small>Meça a circunferência do quadril na zona horizontal mais larga</small></p> 
+                                <input type="number" ng-model="$ctrl.perfil.medidas.quadril" id="quadril" class="form-control" placeholder="ex: 82" required> 
+                            </div>
+                    </fieldset>
                     
                     <button class="btn btn-danger" ng-click="$ctrl.fecharEdicao()">Cancelar</button>
                     <button class="btn btn-success" ng-click="$ctrl.salvar()">Salvar</button>
@@ -58,29 +77,44 @@
             </div>
         </div>
         <div class="card-body" ng-if="!$ctrl.modoEdicao"> 
-                <div>
-                   <strong>Idade: </strong>{{$ctrl.perfil.idade || '-'}}
-                </div>
-        
-                <div>
-                    <strong>Altura: </strong>{{$ctrl.perfil.altura || '-'}}
-                </div>
-        
-                <div>
-                    <strong>Peso: </strong>{{$ctrl.perfil.peso || '-'}}
-                </div>
-        
-                <div>
-                    <strong>Gênero: </strong>{{$ctrl.perfil.genero || '-'}}
-                </div>
-        
-                <div>
-                    <strong>Nível de atividade: </strong>{{$ctrl.perfil.nivelAtividade || '-'}}
-                </div>
-
-                <div>
-                    <strong>Objetivo: </strong>{{$ctrl.perfil.objetivo || '-'}} 
-                </div>
+            <div>
+                <strong>Idade: </strong>{{$ctrl.perfil.idade ? $ctrl.perfil.idade + ' anos' : '-'}}
             </div>
+    
+            <div>
+                <strong>Altura: </strong>{{$ctrl.perfil.altura  ? $ctrl.perfil.altura + ' cm': '-'}}
+            </div>
+    
+            <div>
+                <strong>Peso: </strong>{{$ctrl.perfil.peso  ? $ctrl.perfil.peso + '  cm': '-'}} 
+            </div>
+    
+            <div>
+                <strong>Gênero: </strong>{{$ctrl.perfil.genero  ? $ctrl.perfil.genero : '-'}}
+            </div>
+    
+            <div>
+                <strong>Nível de atividade: </strong>{{$ctrl.perfil.nivelAtividade  ? $ctrl.perfil.nivelAtividade : '-'}}
+            </div>
+
+            <div>
+                <strong>Objetivo: </strong>{{$ctrl.perfil.objetivo  ? $ctrl.perfil.objetivo : '-'}} 
+            </div>
+
+            <div>
+                <strong>Medidas</strong>
+                <ul>
+                    <li>
+                        <strong>Pescoço: </strong> {{$ctrl.perfil.medidas.pescoco ? $ctrl.perfil.medidas.pescoco + ' cm': '-'}} 
+                    </li>
+                    <li>
+                        <strong>Cintura: </strong> {{$ctrl.perfil.medidas.cintura ? $ctrl.perfil.medidas.cintura + ' cm': '-'}} 
+                    </li>
+                    <li ng-if="$ctrl.perfil.genero==='Feminino'">
+                        <strong>Quadril: </strong> {{$ctrl.perfil.medidas.quadril ? $ctrl.perfil.medidas.quadril + ' cm': '-'}} 
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
