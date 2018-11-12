@@ -11,4 +11,9 @@ router
   .all(autho.requiresLocalLogin, api.loadOrCreate)
   .get(api.get);
 
+router
+  .route("/resultados-usuario/gordura-corporal")
+  .all(autho.requiresLocalLogin, api.loadOrCreate)
+  .post(api.update);
+
 module.exports = router;

@@ -1,12 +1,11 @@
 <link rel="stylesheet" href="resultados.css">
 <navbar></navbar>
-<div class="container text-center mt-5">
+<div class="container text-center my-5">
     <loader ng-if="$ctrl.isLoading"></loader>
-    
     <div ng-if="!$ctrl.isLoading">
        <h2>Resultados de {{$ctrl.resultados.usuario.name || '-'}}</h2>
-        <div class="list-group">
-            <a class="list-group-item list-group-item-action" href="" ng-click="$ctrl.exibirDescricao('imc')">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action" href="" ng-click="$ctrl.exibirDescricao('imc')">
                 <div class="d-flex align-items-center">
                     <div>
                         Índice de Massa Corporal
@@ -37,8 +36,80 @@
                         </tbody> 
                     </table>
                 </div>  
-            </a>
-        </div>
+            </li>
+
+            <li class="list-group-item list-group-item-action" href="" ng-click="$ctrl.exibirDescricao('taxaMetabolicaBasal')">
+                <div class="d-flex align-items-center">
+                    <div>
+                        Taxa Metabólica Basal
+                    </div>
+                    <div class="ml-auto">
+                        {{$ctrl.resultados.taxaMetabolicaBasal +' kcal' || '-'}}  
+                        <i class="fas fa-chevron-down ml-2" ng-if="!$ctrl.descricoes.taxaMetabolicaBasal"></i>
+                        <i class="fas fa-chevron-up ml-2" ng-if="$ctrl.descricoes.taxaMetabolicaBasal"></i>
+                    </div>
+                </div>
+                <div ng-if="$ctrl.descricoes.taxaMetabolicaBasal">
+                    <div class="card card-body mt-2 descricao-resultados" >
+                            Taxa Metabólica Basal (TMB) é a quantidade mínima de energia que o seu corpo consome diariamente, que equivale á quantidade de calorias necessárias para manter o seu peso atual.
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item list-group-item-action" href="" ng-click="$ctrl.exibirDescricao('exigenciaAgua')">
+                <div class="d-flex align-items-center">
+                    <div>
+                        Exigência de Água
+                    </div>
+                    <div class="ml-auto">
+                        {{$ctrl.resultados.exigenciaAgua +' litros' || '-'}}  
+                        <i class="fas fa-chevron-down ml-2" ng-if="!$ctrl.descricoes.exigenciaAgua"></i>
+                        <i class="fas fa-chevron-up ml-2" ng-if="$ctrl.descricoes.exigenciaAgua"></i> 
+                    </div>
+                </div>
+                <div ng-if="$ctrl.descricoes.exigenciaAgua">
+                    <div class="card card-body mt-2 descricao-resultados" >
+                            A água é um componente essencial de todos os tecidos corpóreos. Ela constitui mais de 60% do organismo humano e praticamente em todas as funções necessárias à vida. Depois do oxigênio é da ausência de água que mais o organismo sentirá falta, daí a importância de ser mantida uma boa hidratação corporal.
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item" href="">
+                <div class="d-flex align-items-center"> 
+                    <div>
+                        Gordura Corporal
+                    </div>
+                    <div class="ml-auto">
+                        {{$ctrl.resultados.gorduraCorporal +' %' || '-'}}  
+                        <i class="fas fa-info-circle" ng-click="$ctrl.exibirDescricao('gorduraCorporal')"></i>
+                    </div>
+                </div>
+                <div ng-if="$ctrl.descricoes.gorduraCorporal">
+                    <div class="card card-body mt-2 descricao-resultados" >
+                        <p>Para obter um resultado mais preciso da gordura corporal é necessário realizar algumas medidas</p>
+                        <form>
+                            <div class="form-group">
+                                <label for="idade" class="control-label">Pescoço(cm)</label>
+                                <p><small>Meça a circunferência do pescoço abaixo do pomo de adão</small></p>
+                                <input type="number" ng-model="$ctrl.resultados.medidasCalculoGorduraCorporal.pescoco" id="pescoco" class="form-control" placeholder="ex: 52" required> 
+                            </div>
+                            <div class="form-group">
+                                <label for="idade" class="control-label">Cintura(cm)</label>
+                                <p><small>Meça a circunferência da sua cintura num nível horizontal a zona do umbigo para homens e na parte mais estreita para mulheres</small></p>
+                                <input type="number" ng-model="$ctrl.resultados.medidasCalculoGorduraCorporal.cintura" id="cintura" class="form-control" placeholder="ex: 75" required>
+                            </div>
+                            <div class="form-group" ng-if="$ctrl.resultados.perfilUsuario.genero==='Feminino'">
+                                <label for="idade" class="control-label">Quadril(cm)</label>
+                                <p><small>Meça a circunferência do quadril na zona horizontal mais larga</small></p> 
+                                <input type="number" ng-model="$ctrl.resultados.medidasCalculoGorduraCorporal.quadril" id="ancas" class="form-control" placeholder="ex: 82" required> 
+                            </div>
+                            <button class="btn btn-danger">Cancelar</button>  
+                            <button class="btn btn-success" ng-click="$ctrl.calcularGorduraCorporal($event)">Salvar</button>
+                        </form>
+                    </div>
+                </div>
+            </li> 
+        </ul>
     </div>
 </div>
 

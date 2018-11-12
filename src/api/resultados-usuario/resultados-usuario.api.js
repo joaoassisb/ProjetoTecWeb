@@ -41,5 +41,16 @@ module.exports = {
       .then(() => {
         res.send(resultadoUsuario);
       });
+  },
+  update(req, res, next) {
+    console.log(req.body);
+    Object.assign(req.resultadoUsuario, req.body);
+
+    return req.resultadoUsuario
+      .save()
+      .then(resultadoUsuario => {
+        res.send(resultadoUsuario);
+      })
+      .catch(next);
   }
 };

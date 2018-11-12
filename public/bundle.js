@@ -282,16 +282,24 @@
       templateUrl: "resultados.html",
       controller($http) {
         this.$onInit = () => {
+          this.query();
+
+          this.descricoes = {
+            imc: false,
+            taxaMetabolicaBasal: false,
+            exigenciaAgua: false,
+            gorduraCorporal: false
+          };
+        };
+
+        this.query = () => {
           this.isLoading = true;
           $http.get("/api/resultados-usuario").then(({ data }) => {
             this.resultados = data;
+            console.log(this.resultados);
             this.isLoading = false;
             this.getFaixaIMC();
           });
-
-          this.descricoes = {
-            imc: false
-          };
         };
 
         this.exibirDescricao = atributo => {
@@ -344,6 +352,16 @@
             situacao: "Obesidade III (mórbida)"
           }
         ];
+
+        this.calcularGorduraCorporal = event => {
+          event.preventDefault();
+          event.stopPropagation();
+          $http
+            .post("/api/resultados-usuario/gordura-corporal", this.resultados)
+            .then(resultado => {
+              this.query();
+            });
+        };
       }
     });
 
