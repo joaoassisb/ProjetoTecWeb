@@ -29,7 +29,7 @@
                             </tr> 
                         </thead> 
                         <tbody> 
-                            <tr ng-repeat="linha in $ctrl.linhasIMC" ng-class="{'table-active' : $ctrl.faixaIMC == $index}"> 
+                            <tr ng-repeat="linha in $ctrl.linhasIMC" ng-class="{'table-active' : $ctrl.resultados.faixaIMC == $index}"> 
                                 <td>{{linha.resultado}}</td> 
                                 <td>{{linha.situacao}}</td> 
                             </tr>  
@@ -97,6 +97,20 @@
                         funções vitais. Por isso, uma pessoa nunca poderá acabar com toda gordura do 
                         corpo mas sim abaixar o percentual para que o corpo fique com formas 
                         torneadas e os músculos comecem a aparecer.
+                        <table class="table table-bordered table-light mt-2"> 
+                            <thead> 
+                                <tr> 
+                                    <td>Resultado</td> 
+                                    <td>Situação</td> 
+                                </tr> 
+                            </thead> 
+                            <tbody> 
+                                <tr ng-repeat="linha in $ctrl.linhasGorduraCorporal" ng-class="{'table-active' : $ctrl.resultados.faixaGorduraCorporal == $index}"> 
+                                    <td>{{$ctrl.resultados.perfilUsuario.genero === 'Masculino' ? linha.resultadoHomem : linha.resultadoMulher}}</td> 
+                                    <td>{{linha.situacao}}</td>
+                                </tr>  
+                            </tbody> 
+                        </table>
                     </div>
                 </div>
             </li> 

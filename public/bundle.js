@@ -298,29 +298,13 @@
           this.isLoading = true;
           $http.get("/api/resultados-usuario").then(({ data }) => {
             this.resultados = data;
+            console.log(this.resultados);
             this.isLoading = false;
-            this.getFaixaIMC();
           });
         };
 
         this.exibirDescricao = atributo => {
           this.descricoes[atributo] = !this.descricoes[atributo];
-        };
-
-        this.getFaixaIMC = () => {
-          if (this.resultados.imc <= 17) {
-            this.faixaIMC = 0;
-          } else if (this.resultados.imc <= 18.49) {
-            this.faixaIMC = 1;
-          } else if (this.resultados.imc <= 24.99) {
-            this.faixaIMC = 2;
-          } else if (this.resultados.imc <= 29.99) {
-            this.faixaIMC = 3;
-          } else if (this.resultados.imc <= 34.99) {
-            this.faixaIMC = 4;
-          } else if (this.resultados.imc >= 40) {
-            this.faixaIMC = 5;
-          }
         };
 
         this.linhasIMC = [
@@ -351,6 +335,39 @@
           {
             resultado: "Acima de 40",
             situacao: "Obesidade III (mórbida)"
+          }
+        ];
+
+        this.linhasGorduraCorporal = [
+          {
+            resultadoHomem: "Abaixo de 6%",
+            resultadoMulher: "Abaixo de 14%",
+            situacao: "Gordura essencial"
+          },
+          {
+            resultadoHomem: "Entre 6-12%",
+            resultadoMulher: "Entre 14-20%",
+            situacao: "Atleta"
+          },
+          {
+            resultadoHomem: "Entre 13-16%",
+            resultadoMulher: "Entre 21-24%",
+            situacao: "Saudável"
+          },
+          {
+            resultadoHomem: "Entre 17-21%",
+            resultadoMulher: "Entre 25-30%",
+            situacao: "Aceitável"
+          },
+          {
+            resultadoHomem: "Entre 22-29%",
+            resultadoMulher: "Entre 31-39%",
+            situacao: "Acima do peso"
+          },
+          {
+            resultadoHomem: "Acima de 30%",
+            resultadoMulher: "Acima de 40%",
+            situacao: "Obeso"
           }
         ];
 
