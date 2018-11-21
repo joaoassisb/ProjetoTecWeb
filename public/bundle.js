@@ -345,23 +345,23 @@
             situacao: "Gordura essencial"
           },
           {
-            resultadoHomem: "Entre 6-12%",
-            resultadoMulher: "Entre 14-20%",
+            resultadoHomem: "Entre 6-13%",
+            resultadoMulher: "Entre 14-21%",
             situacao: "Atleta"
           },
           {
-            resultadoHomem: "Entre 13-16%",
-            resultadoMulher: "Entre 21-24%",
+            resultadoHomem: "Entre 13-17%",
+            resultadoMulher: "Entre 21-25%",
             situacao: "Saudável"
           },
           {
-            resultadoHomem: "Entre 17-21%",
-            resultadoMulher: "Entre 25-30%",
+            resultadoHomem: "Entre 17-22%",
+            resultadoMulher: "Entre 25-31%",
             situacao: "Aceitável"
           },
           {
-            resultadoHomem: "Entre 22-29%",
-            resultadoMulher: "Entre 31-39%",
+            resultadoHomem: "Entre 22-30%",
+            resultadoMulher: "Entre 31-40%",
             situacao: "Acima do peso"
           },
           {

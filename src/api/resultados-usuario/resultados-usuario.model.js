@@ -125,32 +125,33 @@ ResultadosSchema.method({
     if (this.perfilUsuario.genero === "Masculino") {
       if (this.gorduraCorporal <= 6) {
         this.faixaGorduraCorporal = 0;
-      } else if (this.gorduraCorporal <= 12) {
+      } else if (this.gorduraCorporal <= 13) {
         this.faixaGorduraCorporal = 1;
-      } else if (this.gorduraCorporal <= 16) {
+      } else if (this.gorduraCorporal <= 17) {
         this.faixaGorduraCorporal = 2;
-      } else if (this.gorduraCorporal <= 21) {
+      } else if (this.gorduraCorporal <= 22) {
         this.faixaGorduraCorporal = 3;
-      } else if (this.gorduraCorporal <= 29) {
+      } else if (this.gorduraCorporal <= 30) {
         this.faixaGorduraCorporal = 4;
-      } else if (this.gorduraCorporal >= 30) {
+      } else if (this.gorduraCorporal > 30) {
         this.faixaGorduraCorporal = 5;
       }
     } else {
       if (this.gorduraCorporal <= 14) {
         this.faixaGorduraCorporal = 0;
-      } else if (this.gorduraCorporal <= 20) {
+      } else if (this.gorduraCorporal <= 21) {
         this.faixaGorduraCorporal = 1;
-      } else if (this.gorduraCorporal <= 24) {
+      } else if (this.gorduraCorporal <= 25) {
         this.faixaGorduraCorporal = 2;
-      } else if (this.gorduraCorporal <= 30) {
+      } else if (this.gorduraCorporal <= 31) {
         this.faixaGorduraCorporal = 3;
-      } else if (this.gorduraCorporal <= 39) {
+      } else if (this.gorduraCorporal <= 40) {
         this.faixaGorduraCorporal = 4;
-      } else if (this.gorduraCorporal >= 40) {
+      } else if (this.gorduraCorporal > 40) {
         this.faixaGorduraCorporal = 5;
       }
     }
+
     return;
   }
 });
