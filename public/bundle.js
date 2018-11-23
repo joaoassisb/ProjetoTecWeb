@@ -394,12 +394,35 @@
       controller() {}
     });
 
+  angular.module("app").component("alimento", {
+    templateUrl: "alimento.html",
+    controller($http, $routeParams) {
+      this.$onInit = () => {
+        this.query();
+      };
+
+      this.query = () => {
+        this.isLoading = true;
+        $http
+          .get(`/api/alimentos/${$routeParams.alimentoId}`)
+          .then(({ data }) => {
+            this.alimento = data;
+            this.isLoading = false;
+          });
+      };
+    }
+  });
+
   angular
     .module("app")
     .config($routeProvider => {
-      $routeProvider.when("/alimentos", {
-        template: "<alimentos>"
-      });
+      $routeProvider
+        .when("/alimentos", {
+          template: "<alimentos>"
+        })
+        .when("/alimentos/:alimentoId", {
+          template: "<alimento>"
+        });
     })
     .component("alimentos", {
       templateUrl: "alimentos.html",
@@ -413,7 +436,6 @@
           $http.get("/api/alimentos").then(({ data }) => {
             this.alimentos = data;
             this.isLoading = false;
-            console.log(this.alimentos[0]);
           });
         };
       }

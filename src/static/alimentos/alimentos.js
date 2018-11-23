@@ -1,9 +1,15 @@
+import "./alimento";
+
 angular
   .module("app")
   .config($routeProvider => {
-    $routeProvider.when("/alimentos", {
-      template: "<alimentos>"
-    });
+    $routeProvider
+      .when("/alimentos", {
+        template: "<alimentos>"
+      })
+      .when("/alimentos/:alimentoId", {
+        template: "<alimento>"
+      });
   })
   .component("alimentos", {
     templateUrl: "alimentos.html",
@@ -17,7 +23,6 @@ angular
         $http.get("/api/alimentos").then(({ data }) => {
           this.alimentos = data;
           this.isLoading = false;
-          console.log(this.alimentos[0]);
         });
       };
     }

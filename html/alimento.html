@@ -1,0 +1,25 @@
+<navbar></navbar>
+<div class="container mt-5">
+    <div class="text-center" ng-if="$ctrl.isLoading">
+        <loader></loader>
+    </div>
+
+    <div class="card" ng-if="!$ctrl.isLoading">
+        <div class="card-header">
+            <div class="d-flex">
+                <h2 class="card-title">
+                    {{$ctrl.alimento.description}} 
+                </h2>
+            </div>
+        </div>
+
+        <div class="card-body"> 
+            <div>
+                <strong>Categoria: </strong>{{$ctrl.alimento.category}}
+            </div>
+            <div>
+                <strong>Categoria: </strong>{{$ctrl.alimento.category}}
+            </div>
+        </div>
+    </div>
+</div>

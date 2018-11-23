@@ -2,7 +2,7 @@
 <div class="container mt-5">
     <div> 
         <ul class="list-group">
-            <li class="list-group-item list-group-item-action" href="" ng-click="$ctrl.exibirDescricao('imc')">
+            <li class="list-group-item list-group-item">
                 <div class="row">
                     <div class="col-4">
                         <strong>Categoria</strong>
@@ -20,13 +20,13 @@
                 <loader></loader>
             </div>
 
-            <li ng-repeat="alimento in $ctrl.alimentos" class="list-group-item list-group-item-action" ng-if="!$ctrl.isLoading">
+            <a ng-repeat="alimento in $ctrl.alimentos" class="list-group-item list-group-item-action" ng-if="!$ctrl.isLoading" href="#!/alimentos/{{alimento._id}}">
                 <div class="row">
                     <div class="col-4">{{alimento.category}}</div>
                     <div class="col-4 text-center">{{alimento.description}}</div>
-                    <div class="col-4 text-right">{{alimento.energy_kcal | number:2}}</div> 
+                    <div class="col-4 text-right">{{alimento.energy_kcal | number:2}}</div>
                 </div>
-            </li>
+            </a> 
         </ul>
     </div>
 </div>
