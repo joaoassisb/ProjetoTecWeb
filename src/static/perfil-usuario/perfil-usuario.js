@@ -71,7 +71,6 @@ angular
         $http.get("/api/perfil-usuario").then(({ data }) => {
           this.perfil = data;
           this.isLoading = false;
-          console.log(this.perfil);
         });
       };
 

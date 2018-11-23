@@ -1,0 +1,32 @@
+<navbar></navbar>
+<div class="container mt-5">
+    <div> 
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action" href="" ng-click="$ctrl.exibirDescricao('imc')">
+                <div class="row">
+                    <div class="col-4">
+                        <strong>Categoria</strong>
+                    </div>
+                    <div class="col-4 text-center">
+                        <strong>Nome</strong>
+                    </div>
+                    <div class="col-4 text-right">
+                        <strong>Calorias(kcal/100g)</strong>
+                    </div>
+                </div>    
+            </li>
+
+            <div class="text-center my-4" ng-if="$ctrl.isLoading">
+                <loader></loader>
+            </div>
+
+            <li ng-repeat="alimento in $ctrl.alimentos" class="list-group-item list-group-item-action" ng-if="!$ctrl.isLoading">
+                <div class="row">
+                    <div class="col-4">{{alimento.category}}</div>
+                    <div class="col-4 text-center">{{alimento.description}}</div>
+                    <div class="col-4 text-right">{{alimento.energy_kcal | number:2}}</div> 
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -250,7 +250,6 @@
           $http.get("/api/perfil-usuario").then(({ data }) => {
             this.perfil = data;
             this.isLoading = false;
-            console.log(this.perfil);
           });
         };
 
@@ -393,6 +392,31 @@
     .component("refeicoes", {
       templateUrl: "refeicoes.html",
       controller() {}
+    });
+
+  angular
+    .module("app")
+    .config($routeProvider => {
+      $routeProvider.when("/alimentos", {
+        template: "<alimentos>"
+      });
+    })
+    .component("alimentos", {
+      templateUrl: "alimentos.html",
+      controller($http) {
+        this.$onInit = () => {
+          this.query();
+        };
+
+        this.query = () => {
+          this.isLoading = true;
+          $http.get("/api/alimentos").then(({ data }) => {
+            this.alimentos = data;
+            this.isLoading = false;
+            console.log(this.alimentos[0]);
+          });
+        };
+      }
     });
 
   const m$1 = angular.module("app");
