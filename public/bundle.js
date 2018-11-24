@@ -1,4 +1,4 @@
-(function () {
+(function (crypto) {
   'use strict';
 
   angular.module("app", ["ngRoute"]);
@@ -426,7 +426,7 @@
     })
     .component("alimentos", {
       templateUrl: "alimentos.html",
-      controller($http) {
+      controller($http, $filter, $location) {
         this.$onInit = () => {
           this.query();
         };
@@ -436,7 +436,18 @@
           $http.get("/api/alimentos").then(({ data }) => {
             this.alimentos = data;
             this.isLoading = false;
+            this.atualizarFiltros();
           });
+        };
+
+        this.atualizarFiltros = () => {
+          this.alimentosFiltrados = $filter("filter")(this.alimentos, {
+            description: this.searchText || undefined
+          });
+        };
+
+        this.novoAlimento = () => {
+          $location.path("/novo-alimento");
         };
       }
     });
@@ -453,4 +464,4 @@
       });
   });
 
-}());
+}(crypto));
