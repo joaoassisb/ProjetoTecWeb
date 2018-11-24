@@ -60,7 +60,16 @@ function setupPassport(userModelName, strategyName) {
         const UserModel = mongoose.model("Usuario");
 
         UserModel.findOne(
-          { "social.facebook": profile.id, email: profile.emails[0].value },
+          {
+            $or: [
+              {
+                "social.facebook": profile.id
+              },
+              {
+                email: profile.emails[0].value
+              }
+            ]
+          },
           (err, user) => {
             if (err) {
               return done(err);
@@ -72,7 +81,7 @@ function setupPassport(userModelName, strategyName) {
                 user.social = {
                   facebook: profile.id
                 };
-
+                user.social.facebook = profile.id;
                 return user.save().then(() => {
                   return done(null, user);
                 });
