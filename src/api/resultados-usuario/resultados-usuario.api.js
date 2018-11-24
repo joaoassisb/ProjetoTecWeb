@@ -43,7 +43,6 @@ module.exports = {
       });
   },
   update(req, res, next) {
-    console.log(req.body);
     Object.assign(req.resultadoUsuario, req.body);
 
     return req.resultadoUsuario
