@@ -58,38 +58,44 @@ function setupPassport(userModelName, strategyName) {
       (accessToken, refreshToken, profile, done) => {
         const userModelName = "Usuario";
         const UserModel = mongoose.model("Usuario");
-        console.log("carregando modelo de usuários");
-        UserModel.findOne({ "social.facebook": profile.id }, (err, user) => {
-          console.log("busca usuários");
-          if (err) {
-            console.log("erro busca usuarios");
-            return done(err);
-          }
 
-          if (user) {
-            console.log("usuário encontrado ");
-
-            return done(null, user);
-          }
-
-          console.log("criar novo usuário");
-          console.log(profile);
-          const novoUsuario = new UserModel({
-            name: profile.displayName,
-            social: {
-              facebook: profile.id
-            },
-            email: profile.emails[0].value
-          });
-
-          return novoUsuario.save((err, novoUsuario) => {
+        UserModel.findOne(
+          { "social.facebook": profile.id, email: profile.emails[0].value },
+          (err, user) => {
             if (err) {
-              done(err);
+              return done(err);
             }
 
-            return done(null, novoUsuario);
-          });
-        });
+            if (user) {
+              //usuario com email cadastrado, atulizar atributo de facebook
+              if (!user.social.facebook) {
+                console.log("usuario com email cadastrado");
+                user.social.facebook = profile.id;
+                return user.save().then(() => {
+                  return done(null, user);
+                });
+              }
+              //usuario com facebook ja cadastrado, retornar validação
+              return done(null, user);
+            }
+
+            const novoUsuario = new UserModel({
+              name: profile.displayName,
+              social: {
+                facebook: profile.id
+              },
+              email: profile.emails[0].value
+            });
+
+            return novoUsuario.save((err, novoUsuario) => {
+              if (err) {
+                done(err);
+              }
+
+              return done(null, novoUsuario);
+            });
+          }
+        );
       }
     )
   );
@@ -161,7 +167,8 @@ module.exports = function(app, options) {
   app.get("/session", autho.requiresLocalLogin, (req, res) => {
     res.send({
       name: req.user.name,
-      email: req.user.email
+      email: req.user.email,
+      id: req.user._id
     });
   });
 

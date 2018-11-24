@@ -1,4 +1,4 @@
-(function (crypto) {
+(function () {
   'use strict';
 
   angular.module("app", ["ngRoute"]);
@@ -186,7 +186,7 @@
     })
     .component("perfilUsuario", {
       templateUrl: "perfil-usuario.html",
-      controller($http, $httpParamSerializer, Auth) {
+      controller($http) {
         this.$onInit = () => {
           this.modoEdicao = false;
           this.generos = ["Feminino", "Masculino"];
@@ -255,7 +255,6 @@
 
         this.salvar = () => {
           this.isLoading = true;
-          console.log(this.perfil);
           $http.post("/api/perfil-usuario", this.perfil).then(() => {
             this.fecharEdicao();
             this.isLoading = false;
@@ -396,9 +395,12 @@
 
   angular.module("app").component("alimento", {
     templateUrl: "alimento.html",
-    controller($http, $routeParams) {
+    controller($http, $routeParams, $location, Auth) {
       this.$onInit = () => {
         this.query();
+        Auth.getSession().then(({ _id }) => {
+          this.userId = _id;
+        });
       };
 
       this.query = () => {
@@ -408,7 +410,48 @@
           .then(({ data }) => {
             this.alimento = data;
             this.isLoading = false;
+            console.log(this.alimento);
           });
+      };
+
+      this.editar = () => {
+        console.log("editar");
+      };
+
+      this.excluir = () => {
+        $http.delete("/api/aliment/${this.alimento._id}").then(() => {
+          $location.path("/alimentos");
+        });
+      };
+    }
+  });
+
+  angular.module("app").component("novoAlimento", {
+    templateUrl: "novo-alimento.html",
+    controller($http, $location) {
+      this.$onInit = () => {
+        this.categorias = [
+          "Cereais e derivados",
+          "Verduras, hortaliças e derivados",
+          "Frutas e derivados",
+          "Gorduras e óleos",
+          "Pescados e frutos do mar",
+          "Carnes e derivados",
+          "Leite e derivados",
+          "Bebidas(alcoólicas e não alcoólicas)",
+          "Ovos e derivados",
+          "Produtos açucarados",
+          "Outros alimentos industrializados",
+          "Alimentos preparados",
+          "Leguminosas e derivados",
+          "Nozes e sementes"
+        ];
+      };
+
+      this.salvar = () => {
+        $http.post("/api/alimentos", this.alimento).then(({ _id }) => {
+          $location.path(`/alimentos/${_id}`);
+        });
       };
     }
   });
@@ -422,6 +465,9 @@
         })
         .when("/alimentos/:alimentoId", {
           template: "<alimento>"
+        })
+        .when("/novo-alimento", {
+          template: "<novo-alimento>"
         });
     })
     .component("alimentos", {
@@ -442,7 +488,8 @@
 
         this.atualizarFiltros = () => {
           this.alimentosFiltrados = $filter("filter")(this.alimentos, {
-            description: this.searchText || undefined
+            description: this.searchText || undefined,
+            category: this.searchText || undefined
           });
         };
 
@@ -455,13 +502,9 @@
   const m$1 = angular.module("app");
 
   m$1.config($routeProvider => {
-    $routeProvider
-      .when("/login", {
-        template: "<login>"
-      })
-      .otherwise({
-        redirectTo: "login"
-      });
+    $routeProvider.when("/", {
+      template: "<login>"
+    });
   });
 
-}(crypto));
+}());

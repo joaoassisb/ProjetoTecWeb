@@ -1,5 +1,5 @@
 import "./alimento";
-import { timingSafeEqual } from "crypto";
+import "./novo-alimento";
 
 angular
   .module("app")
@@ -10,6 +10,9 @@ angular
       })
       .when("/alimentos/:alimentoId", {
         template: "<alimento>"
+      })
+      .when("/novo-alimento", {
+        template: "<novo-alimento>"
       });
   })
   .component("alimentos", {
@@ -30,7 +33,8 @@ angular
 
       this.atualizarFiltros = () => {
         this.alimentosFiltrados = $filter("filter")(this.alimentos, {
-          description: this.searchText || undefined
+          description: this.searchText || undefined,
+          category: this.searchText || undefined
         });
       };
 

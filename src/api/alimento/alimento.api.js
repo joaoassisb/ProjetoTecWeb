@@ -16,9 +16,11 @@ module.exports = {
       .catch(next);
   },
   create(req, res, next) {
-    const { body } = req;
+    const { body, user } = req;
 
     const alimento = new Alimento(body);
+
+    alimento.usuario = user;
 
     alimento
       .save()

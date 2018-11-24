@@ -1,0 +1,55 @@
+<navbar></navbar>
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <a href="#!/alimentos">
+                    <h2>
+                        <i class="fas fa-chevron-left"></i>
+                    </h2>
+                </a>
+                <h2>Novo Alimento</h2>
+                <br>
+            </div>
+        </div>
+        <form ng-submit="$ctrl.salvar()">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="nome">Nome*</label>
+                    <input type="text" id="nome" class="form-control" ng-model="$ctrl.alimento.description" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nome">Categoria*</label>
+                    <select name="" id="" ng-options="categoria for categoria in $ctrl.categorias" class="form-control" ng-model="$ctrl.alimento.category" required>
+                        <option value="">Selecione uma categoria</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nome">Calorias (kcal/100g)*</label> 
+                    <input type="number" id="nome" class="form-control" ng-model="$ctrl.alimento.energy_kcal" required> 
+                </div>
+                
+                <div class="form-group">
+                    <label for="nome">Protéinas (g/100g)</label>
+                    <input type="number" id="nome" class="form-control" ng-model="$ctrl.alimento.alimento.protein_g">
+                </div>
+
+                <div class="form-group">
+                    <label for="nome">Carboidratos (kcal/100g)</label>
+                    <input type="number" id="nome" class="form-control" ng-model="$ctrl.alimento.alimento.carbohydrate_g">
+                </div>
+
+                <div class="form-group">
+                    <label for="nome">Lipídios (kcal/100g)</label>
+                    <input type="number" id="nome" class="form-control" ng-model="$ctrl.alimento.alimento.lipidius_g">
+                </div> 
+            </div>
+            <div class="card-footer text-center">
+                <a href="#!/alimentos" class="btn btn-danger" ng>Cancelar</a>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>

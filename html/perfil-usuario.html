@@ -1,5 +1,5 @@
 <navbar></navbar>
-<div class="container mt-5">
+<div class="container my-5">
     <div class="text-center" ng-if="$ctrl.isLoading">
         <loader></loader>
     </div>
@@ -70,12 +70,14 @@
                                 <input type="number" ng-model="$ctrl.perfil.medidas.quadril" id="quadril" class="form-control" placeholder="ex: 82" required> 
                             </div>
                     </fieldset>
-                    
-                    <button class="btn btn-danger" ng-click="$ctrl.fecharEdicao()">Cancelar</button>
-                    <button class="btn btn-success" ng-click="$ctrl.salvar()">Salvar</button>
                 </form>
             </div>
         </div>
+        <div class="card-footer text-center" ng-if="$ctrl.modoEdicao">
+            <button class="btn btn-danger" ng-click="$ctrl.fecharEdicao()">Cancelar</button>
+            <button class="btn btn-success" ng-click="$ctrl.salvar()">Salvar</button>
+        </div>
+
         <div class="card-body" ng-if="!$ctrl.modoEdicao"> 
             <div>
                 <strong>Idade: </strong>{{$ctrl.perfil.idade ? $ctrl.perfil.idade + ' anos' : '-'}}

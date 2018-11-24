@@ -14,11 +14,7 @@ import "./alimentos/alimentos";
 const m = angular.module("app");
 
 m.config($routeProvider => {
-  $routeProvider
-    .when("/login", {
-      template: "<login>"
-    })
-    .otherwise({
-      redirectTo: "login"
-    });
+  $routeProvider.when("/", {
+    template: "<login>"
+  });
 });

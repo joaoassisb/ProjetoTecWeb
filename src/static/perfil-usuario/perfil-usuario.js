@@ -7,7 +7,7 @@ angular
   })
   .component("perfilUsuario", {
     templateUrl: "perfil-usuario.html",
-    controller($http, $httpParamSerializer, Auth) {
+    controller($http) {
       this.$onInit = () => {
         this.modoEdicao = false;
         this.generos = ["Feminino", "Masculino"];
@@ -76,7 +76,6 @@ angular
 
       this.salvar = () => {
         this.isLoading = true;
-        console.log(this.perfil);
         $http.post("/api/perfil-usuario", this.perfil).then(() => {
           this.fecharEdicao();
           this.isLoading = false;
