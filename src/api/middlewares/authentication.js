@@ -68,9 +68,11 @@ function setupPassport(userModelName, strategyName) {
 
             if (user) {
               //usuario com email cadastrado, atulizar atributo de facebook
-              if (!user.social.facebook) {
-                console.log("usuario com email cadastrado");
-                user.social.facebook = profile.id;
+              if (!user.social || !user.social.facebook) {
+                user.social = {
+                  facebook: profile.id
+                };
+
                 return user.save().then(() => {
                   return done(null, user);
                 });
