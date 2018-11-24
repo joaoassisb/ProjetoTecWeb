@@ -23,7 +23,6 @@ angular
         this.isLoading = true;
         $http.get("/api/resultados-usuario").then(({ data }) => {
           this.resultados = data;
-          console.log(this.resultados);
           this.isLoading = false;
         });
       };

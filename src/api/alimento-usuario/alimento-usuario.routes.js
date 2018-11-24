@@ -4,18 +4,21 @@ const express = require("express");
 const router = express.Router();
 
 const autho = require("../middlewares/authorization");
-const api = require("./alimento.api");
+const api = require("./alimento-usuario.api");
 
 router
-  .route("/alimentos")
+  .route("/alimentos-usuario")
   .all(autho.requiresLocalLogin)
-  .get(api.query);
+  .get(api.query)
+  .post(api.create);
 
 router.param("id", api.load);
 
 router
-  .route("/alimentos/:id")
+  .route("/alimentos-usuario/:id")
   .all(autho.requiresLocalLogin)
-  .get(api.get);
+  .get(api.get)
+  .post(api.update)
+  .delete(api.remove);
 
 module.exports = router;

@@ -162,11 +162,23 @@
         })
         .when("/refeicoes", {
           template: "<refeicoes>"
+        })
+        .when("/alimentos", {
+          template: "<alimentos>"
+        })
+        .when("/meus-alimentos", {
+          template: "<meus-alimentos>"
         });
     })
     .component("navbar", {
       templateUrl: "navbar.html",
-      controller($location) {
+      controller($location, Auth) {
+        this.$onInit = () => {
+          Auth.getSession().then(({ _id }) => {
+            this.userId = _id;
+          });
+        };
+
         this.navegar = componentName => {
           $location.path(componentName);
         };
@@ -175,6 +187,13 @@
 
   angular.module("app").component("loader", {
     templateUrl: "loader.html"
+  });
+
+  angular.module("app").component("infosAlimento", {
+    templateUrl: "infos-alimento.html",
+    bindings: {
+      alimento: "<"
+    }
   });
 
   angular
@@ -296,7 +315,6 @@
           this.isLoading = true;
           $http.get("/api/resultados-usuario").then(({ data }) => {
             this.resultados = data;
-            console.log(this.resultados);
             this.isLoading = false;
           });
         };
@@ -398,9 +416,6 @@
     controller($http, $routeParams, $location, Auth) {
       this.$onInit = () => {
         this.query();
-        Auth.getSession().then(({ _id }) => {
-          this.userId = _id;
-        });
       };
 
       this.query = () => {
@@ -410,47 +425,94 @@
           .then(({ data }) => {
             this.alimento = data;
             this.isLoading = false;
-            console.log(this.alimento);
           });
-      };
-
-      this.editar = () => {
-        console.log("editar");
-      };
-
-      this.excluir = () => {
-        $http.delete("/api/aliment/${this.alimento._id}").then(() => {
-          $location.path("/alimentos");
-        });
       };
     }
   });
 
-  angular.module("app").component("novoAlimento", {
-    templateUrl: "novo-alimento.html",
-    controller($http, $location) {
+  angular.module("app").component("editarAlimento", {
+    templateUrl: "editar-alimento.html",
+    controller($http, $location, $routeParams) {
       this.$onInit = () => {
-        this.categorias = [
-          "Cereais e derivados",
-          "Verduras, hortaliças e derivados",
-          "Frutas e derivados",
-          "Gorduras e óleos",
-          "Pescados e frutos do mar",
-          "Carnes e derivados",
-          "Leite e derivados",
-          "Bebidas(alcoólicas e não alcoólicas)",
-          "Ovos e derivados",
-          "Produtos açucarados",
-          "Outros alimentos industrializados",
-          "Alimentos preparados",
-          "Leguminosas e derivados",
-          "Nozes e sementes"
-        ];
+        if ($routeParams.id) {
+          this.ehNovo = false;
+          this.query();
+        } else {
+          this.ehNovo = true;
+        }
+      };
+      this.categorias = [
+        "Alimentos preparados",
+        "Bebidas(alcoólicas e não alcoólicas)",
+        "Carnes e derivados",
+        "Cereais e derivados",
+        "Frutas e derivados",
+        "Gorduras e óleos",
+        "Leguminosas e derivados",
+        "Leite e derivados",
+        "Nozes e sementes",
+        "Outros alimentos industrializados",
+        "Ovos e derivados",
+        "Pescados e frutos do mar",
+        "Produtos açucarados",
+        "Verduras, hortaliças e derivados"
+      ];
+
+      this.query = () => {
+        this.isLoading = true;
+        $http
+          .get(`/api/alimentos-usuario/${$routeParams.id}`)
+          .then(({ data }) => {
+            this.alimento = data;
+            this.isLoading = false;
+          });
       };
 
       this.salvar = () => {
-        $http.post("/api/alimentos", this.alimento).then(({ _id }) => {
-          $location.path(`/alimentos/${_id}`);
+        $http
+          .post(
+            `/api/alimentos-usuario/${this.ehNovo ? "" : this.alimento._id}`,
+            this.alimento
+          )
+          .then(() => {
+            this.voltar();
+          });
+      };
+
+      this.voltar = () => {
+        if (this.ehNovo) {
+          $location.path("/meus-alimentos");
+        } else {
+          $location.path(`/meus-alimentos/${this.alimento._id}`);
+        }
+      };
+    }
+  });
+
+  angular.module("app").component("alimentoUsuario", {
+    templateUrl: "alimento-usuario.html",
+    controller($http, $routeParams, $location) {
+      this.$onInit = () => {
+        this.query();
+      };
+
+      this.query = () => {
+        this.isLoading = true;
+        $http
+          .get(`/api/alimentos-usuario/${$routeParams.id}`)
+          .then(({ data }) => {
+            this.alimento = data;
+            this.isLoading = false;
+          });
+      };
+
+      this.editar = () => {
+        $location.path(`/meus-alimentos/${this.alimento._id}/editar`);
+      };
+
+      this.excluir = () => {
+        $http.delete(`/api/alimentos-usuario/${this.alimento._id}`).then(() => {
+          $location.path("/meus-alimentos");
         });
       };
     }
@@ -459,15 +521,50 @@
   angular
     .module("app")
     .config($routeProvider => {
+      $routeProvider.when("/meus-alimentos/:id", {
+        template: "<alimento-usuario>"
+      });
+      $routeProvider.when("/meus-alimentos/:id/editar", {
+        template: "<editar-alimento>"
+      });
+    })
+    .component("meusAlimentos", {
+      templateUrl: "meus-alimentos.html",
+      controller($http, $location, $filter) {
+        this.$onInit = () => {
+          this.isLoading = true;
+          this.query();
+        };
+
+        this.query = () => {
+          $http.get(`/api/alimentos-usuario`).then(({ data }) => {
+            this.meusAlimentos = data;
+            this.isLoading = false;
+            this.atualizarFiltros();
+          });
+        };
+
+        this.atualizarFiltros = () => {
+          this.alimentosFiltrados = $filter("filter")(this.meusAlimentos, {
+            description: this.searchText || undefined
+          });
+        };
+
+        this.novoAlimento = () => {
+          $location.path("/novo-alimento");
+        };
+      }
+    });
+
+  angular
+    .module("app")
+    .config($routeProvider => {
       $routeProvider
-        .when("/alimentos", {
-          template: "<alimentos>"
-        })
         .when("/alimentos/:alimentoId", {
           template: "<alimento>"
         })
         .when("/novo-alimento", {
-          template: "<novo-alimento>"
+          template: "<editar-alimento>"
         });
     })
     .component("alimentos", {
@@ -488,8 +585,7 @@
 
         this.atualizarFiltros = () => {
           this.alimentosFiltrados = $filter("filter")(this.alimentos, {
-            description: this.searchText || undefined,
-            category: this.searchText || undefined
+            description: this.searchText || undefined
           });
         };
 
@@ -506,5 +602,13 @@
       template: "<login>"
     });
   });
+
+  m$1.run([
+    "$locale",
+    function($locale) {
+      $locale.NUMBER_FORMATS.GROUP_SEP = ".";
+      $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+    }
+  ]);
 
 }());

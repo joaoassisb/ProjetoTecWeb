@@ -10,7 +10,10 @@
                 <h2 class="card-title">
                     {{$ctrl.modoEdicao ? 'Editar Perfil': 'Perfil de Usuário'}} 
                 </h2>
-                <button class="btn btn-info ml-auto" ng-click="$ctrl.editar()" ng-if="!$ctrl.modoEdicao">Editar</button> 
+                <button class="btn btn-info ml-auto" ng-click="$ctrl.editar()" ng-if="!$ctrl.modoEdicao">
+                    <i class="fas fa-edit"></i>                    
+                    Editar
+                </button> 
             </div>
         </div>
         <div class="card-body" ng-if="$ctrl.modoEdicao">

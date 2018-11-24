@@ -1,18 +1,16 @@
 import "./alimento";
-import "./novo-alimento";
+import "./editar-alimento";
+import "./alimentos-usuario";
 
 angular
   .module("app")
   .config($routeProvider => {
     $routeProvider
-      .when("/alimentos", {
-        template: "<alimentos>"
-      })
       .when("/alimentos/:alimentoId", {
         template: "<alimento>"
       })
       .when("/novo-alimento", {
-        template: "<novo-alimento>"
+        template: "<editar-alimento>"
       });
   })
   .component("alimentos", {
@@ -33,8 +31,7 @@ angular
 
       this.atualizarFiltros = () => {
         this.alimentosFiltrados = $filter("filter")(this.alimentos, {
-          description: this.searchText || undefined,
-          category: this.searchText || undefined
+          description: this.searchText || undefined
         });
       };
 

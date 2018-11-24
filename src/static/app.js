@@ -6,6 +6,7 @@ import "./cadastro/cadastro";
 import "./home/home";
 import "./componentes/navbar";
 import "./componentes/loader";
+import "./componentes/infos-alimento";
 import "./perfil-usuario/perfil-usuario";
 import "./resultados/resultados";
 import "./refeicoes-diarias/refeicoes-diarias";
@@ -18,3 +19,11 @@ m.config($routeProvider => {
     template: "<login>"
   });
 });
+
+m.run([
+  "$locale",
+  function($locale) {
+    $locale.NUMBER_FORMATS.GROUP_SEP = ".";
+    $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+  }
+]);

@@ -13,24 +13,13 @@
                 <h2 class="card-title">
                     {{$ctrl.alimento.description}} 
                 </h2>
-                
-                <div ng-if="$ctrl.userId === $ctrl.alimento.usuario">
-                    <button class="btn btn-danger">
-                        <i class="fas fa-trash"></i>
-                        Excluir
-                    </button>
-                </div>
 
+                <br>
             </div>
         </div>
 
         <div class="card-body"> 
-            <div>
-                <strong>Categoria: </strong>{{$ctrl.alimento.category}}
-            </div>
-            <div>
-                <strong>Carboidrato (g): </strong>{{$ctrl.alimento.carbohydrate_g | number :2}}
-            </div>
+           <infos-alimento alimento="$ctrl.alimento"></infos-alimento>
         </div>
     </div>
 </div>

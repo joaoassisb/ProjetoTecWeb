@@ -3,16 +3,16 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between">
-                <a href="#!/alimentos">
+                <a href="" ng-click="$ctrl.voltar()">
                     <h2>
                         <i class="fas fa-chevron-left"></i>
                     </h2>
                 </a>
-                <h2>Novo Alimento</h2>
+                <h2>{{$ctrl.ehNovo ? 'Novo Alimento' : 'Editar Alimento' }}</h2>
                 <br>
             </div>
         </div>
-        <form ng-submit="$ctrl.salvar()">
+        <form ng-submit="$ctrl.salvar()" ng-if="!$ctrl.isLoading">
             <div class="card-body">
                 <div class="form-group">
                     <label for="nome">Nome*</label>
@@ -45,11 +45,14 @@
                     <label for="nome">Lipídios (kcal/100g)</label>
                     <input type="number" id="nome" class="form-control" ng-model="$ctrl.alimento.alimento.lipidius_g">
                 </div> 
-            </div>
+            </div> 
             <div class="card-footer text-center">
-                <a href="#!/alimentos" class="btn btn-danger" ng>Cancelar</a>
+                <a href="#!/meus-alimentos" class="btn btn-danger" ng>Cancelar</a>
                 <button type="submit" class="btn btn-success">Salvar</button>
             </div>
         </form>
+        <div ng-if="$ctrl.isLoading" class="my-4 text-center">
+            <loader></loader>
+        </div>
     </div>
 </div>

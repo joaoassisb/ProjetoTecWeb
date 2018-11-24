@@ -1,0 +1,35 @@
+<navbar></navbar>
+<div class="container mt-5">
+    <div class="text-center" ng-if="$ctrl.isLoading">
+        <loader></loader>
+    </div>
+
+    <div class="card" ng-if="!$ctrl.isLoading">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <h2>
+                    <a href="#!/meus-alimentos"><i class="fas fa-chevron-left"></i></a>
+                </h2>
+                <h2 class="card-title">
+                    {{$ctrl.alimento.description}} 
+                </h2>
+                
+                <div>
+                    <button class="btn btn-info" ng-click="$ctrl.editar()">
+                        <i class="fas fa-edit"></i>
+                        Editar
+                    </button>
+                    <button class="btn btn-danger" ng-click="$ctrl.excluir()">
+                        <i class="fas fa-trash"></i>
+                        Excluir
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-body"> 
+            <infos-alimento alimento="$ctrl.alimento"></infos-alimento>
+        </div>
+    </div>
+</div>

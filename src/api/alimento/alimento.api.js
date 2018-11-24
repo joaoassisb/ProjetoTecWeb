@@ -15,20 +15,6 @@ module.exports = {
       })
       .catch(next);
   },
-  create(req, res, next) {
-    const { body, user } = req;
-
-    const alimento = new Alimento(body);
-
-    alimento.usuario = user;
-
-    alimento
-      .save()
-      .then(() => {
-        res.send(alimento);
-      })
-      .catch(next);
-  },
   load(req, res, next, id) {
     Alimento.findById(id).then(alimento => {
       if (!alimento) {
@@ -42,28 +28,5 @@ module.exports = {
     const { alimento } = req;
 
     res.send(alimento);
-  },
-  update(req, res, next) {
-    const { alimento } = req;
-    const { body } = req;
-
-    Object.assign(alimento, body);
-
-    alimento
-      .save()
-      .then(() => {
-        res.send(alimento);
-      })
-      .catch(next);
-  },
-  remove(req, res, next) {
-    const { alimento } = req;
-
-    alimento
-      .remove()
-      .then(() => {
-        res.sendStatus(alimento);
-      })
-      .catch(next);
   }
 };

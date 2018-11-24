@@ -2,10 +2,14 @@
 
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const { ObjectId } = mongoose.SchemaTypes;
 
-const AutoIncrement = require("mongoose-sequence")(mongoose);
-
-const AlimentoSchema = new Schema({
+const AlimentoUsuarioSchema = new Schema({
+  usuario: {
+    type: ObjectId,
+    ref: "Usuario",
+    required: true
+  },
   description: String,
   category: String,
   humidity_percents: Number,
@@ -56,6 +60,8 @@ const AlimentoSchema = new Schema({
   proline_g: Number
 });
 
-AlimentoSchema.plugin(AutoIncrement, { inc_field: "id" });
-
-module.exports = mongoose.model("Alimento", AlimentoSchema, "alimentos");
+module.exports = mongoose.model(
+  "AlimentoUsuario",
+  AlimentoUsuarioSchema,
+  "alimentosusuarios"
+);
