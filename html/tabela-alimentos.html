@@ -1,0 +1,94 @@
+<div class="row mb-2">
+    <h2 class="col-12 col-md-4">{{$ctrl.titulo}}</h2>
+    <div class="col-6 col-md-4">
+        <div class="input-group">
+            <input class="form-control py-2 border-right-0 border" placeholder="Pesquisar" ng-model="$ctrl.searchText" ng-change="$ctrl.atualizarFiltros()">
+            <span class="input-group-append">
+                <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 text-right">
+        <button class="btn btn-success" ng-click="$ctrl.novoAlimento()">Novo Alimento</button>
+    </div>
+</div>
+<div class="text-center my-4" ng-if="$ctrl.isLoading">
+    <loader></loader>
+</div>
+<div class="table-responsive" ng-if="!$ctrl.isLoading">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="d-none d-sm-block">
+                    <strong>Categoria</strong>
+                </th>
+                <th>
+                    <strong>Nome</strong>
+                </th>
+                <th>
+                    <strong>Calorias (kcal/100g)</strong>
+                </th>
+                <th class="text-right">
+                    <strong>Ações</strong>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="alimento in $ctrl.alimentosFiltrados" >
+                <td class="d-none d-sm-block">
+                    {{alimento.category}}
+                </td>
+                <td>
+                    {{alimento.description}}
+                    
+                </td>
+                <td>
+                    {{alimento.energy_kcal | number :2}}
+                </td>
+                <td class="text-right">    
+                    <a class="btn btn-outline-info" ng-click="$ctrl.exibirAlimento(alimento._id)" href="" title="Exibir Detalhes">
+                        <i class="fas fa-search-plus"></i>
+                    </a>
+                    <a class="btn btn-outline-secondary my-2" data-toggle="modal" data-target="#modalAdicao-{{alimento._id}}" title="Adicionar a refeição"> 
+                        <i class="fas fa-utensils"></i>
+                    </a> 
+
+                    <div class="modal fade" id="modalAdicao-{{alimento._id}}" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Adicionar "{{alimento.description}}"" a uma refeição</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div ng-if="$ctrl.isLoadingRefeicoes">
+                                        <loader></loader>
+                                    </div>
+                                    <form ng-if="!$ctrl.isLoadingRefeicoes">
+                                        <div class="form-group text-left">
+                                            <label for="">Refeição</label>
+                                            <select name="" id="" ng-options="r as r.nome for r in $ctrl.refeicoes" class="form-control" ng-model="$ctrl.refeicao" required>
+                                                <option value="">Selecione uma refeição</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group my-2 text-left">
+                                            <label for="quantidade">Quantidade (g)</label>
+                                            <input type="number" class="form-control" ng-model="$ctrl.quantidadeAlimento" required min="0">
+                                        </div>
+                                        
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-success" data-dismiss="modal" ng-click="$ctrl.adicionarAlimento(alimento)">Confirmar</button>
+                                        </div> 
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table> 
+</div>

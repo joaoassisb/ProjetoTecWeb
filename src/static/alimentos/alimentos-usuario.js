@@ -19,21 +19,7 @@ angular
       };
 
       this.query = () => {
-        $http.get(`/api/alimentos-usuario`).then(({ data }) => {
-          this.meusAlimentos = data;
-          this.isLoading = false;
-          this.atualizarFiltros();
-        });
-      };
-
-      this.atualizarFiltros = () => {
-        this.alimentosFiltrados = $filter("filter")(this.meusAlimentos, {
-          description: this.searchText || undefined
-        });
-      };
-
-      this.novoAlimento = () => {
-        $location.path("/novo-alimento");
+        return $http.get(`/api/alimentos-usuario`);
       };
     }
   });

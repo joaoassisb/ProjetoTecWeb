@@ -4,41 +4,50 @@ require("./server");
 
 const mongoose = require("mongoose");
 const Alimento = mongoose.model("Alimento");
+const AlimentoRefeicao = mongoose.model("AlimentoRefeicao");
+const Refeicao = mongoose.model("Refeicao");
 
-const { alimentos } = require("../combined.js");
+// AlimentoRefeicao.find().then(data => {
+//   console.log(data);
+// });
 
-let contador = 0;
+// AlimentoRefeicao.remove().then(data => {
+//   console.log(data);
+// });
+// const { alimentos } = require("../combined.js");
 
-migrar()
-  .then(() => {
-    console.log("CABOOOOOOOOOO CARAIO");
-    process.exit(0);
-  })
-  .catch(err => {
-    console.log("erro");
-    console.log(err);
-  });
+// let contador = 0;
 
-async function migrar() {
-  console.log("Migrando alimentos");
-  let alimento;
+// migrar()
+//   .then(() => {
+//     console.log("CABOOOOOOOOOO CARAIO");
+//     process.exit(0);
+//   })
+//   .catch(err => {
+//     console.log("erro");
+//     console.log(err);
+//   });
 
-  for (const objeto of alimentos) {
-    alimento = new Alimento(objeto);
-    if (contador <= 372) {
-      console.log("alimento ja criado");
-    } else {
-      console.log(`Alimento ${alimento.id} criado`);
+// async function migrar() {
+//   console.log("Migrando alimentos");
+//   let alimento;
 
-      await alimento.save();
-    }
-    contador++;
-  }
+//   for (const objeto of alimentos) {
+//     alimento = new Alimento(objeto);
+//     if (contador <= 372) {
+//       console.log("alimento ja criado");
+//     } else {
+//       console.log(`Alimento ${alimento.id} criado`);
 
-  console.log(`${contador} alimentos criado`);
+//       await alimento.save();
+//     }
+//     contador++;
+//   }
 
-  return;
-}
+//   console.log(`${contador} alimentos criado`);
+
+//   return;
+// }
 
 // Alimento.count()
 //   .then(alimentos => {

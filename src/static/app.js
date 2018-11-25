@@ -7,6 +7,7 @@ import "./home/home";
 import "./componentes/navbar";
 import "./componentes/loader";
 import "./componentes/infos-alimento";
+import "./componentes/tabela-alimentos";
 import "./perfil-usuario/perfil-usuario";
 import "./resultados/resultados";
 import "./refeicoes-diarias/refeicoes-diarias";

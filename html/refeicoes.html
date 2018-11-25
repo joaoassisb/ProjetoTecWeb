@@ -1,4 +1,33 @@
 <navbar></navbar>
-<div class="container text-center">
-    <h2>Em desenvolvimento ...</h2>
+<div class="container my-4">
+    <div class=" text-center ">
+        <h2>Refeições Diárias</h2>
+    </div>
+
+    <div ng-if="$ctrl.isLoading" class="my-4 text-center">
+        <loader></loader>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6" ng-repeat="refeicao in $ctrl.refeicoes" >
+            <div class="card my-4" ng-if="!$ctrl.isLoading">
+                <div class="card-header">
+                    <h4>
+                        {{refeicao.nome}}
+                    </h4>
+                </div>
+        
+                <div class="card-body">
+                    <ul ng-if="refeicao.alimentos.length > 0">
+                        <li ng-repeat="alimentoRefeicao in refeicao.alimentos">
+                            {{alimentoRefeicao.alimento.description}}
+                        </li>
+                    </ul>
+                    <div ng-if="refeicao.alimentos.length === 0">
+                        Nenhum alimento adicionado ainda...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
