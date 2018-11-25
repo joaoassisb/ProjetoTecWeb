@@ -30,7 +30,7 @@
                                    {{alimentoRefeicao.quantidade}}g de {{alimentoRefeicao.alimento.description}} - ({{alimentoRefeicao.totalCalorias | number:2}} kcal)
                                 </div>
                                 <div >
-                                    <a class="btn btn-outline-info" ng-click="$ctrl.editar(alimentoRefeicao._id)" href="" title="Editar">
+                                    <a class="btn btn-outline-info" ng-click="$ctrl.editar(refeicao._id, alimentoRefeicao._id)" href="" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a> 
                                     <a class="btn btn-outline-danger my-2" ng-click="$ctrl.excluir(refeicao._id, alimentoRefeicao._id)" title="Excluir"> 

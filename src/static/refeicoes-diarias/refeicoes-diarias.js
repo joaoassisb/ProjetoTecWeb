@@ -1,3 +1,5 @@
+import "./editar-alimento-refeicao";
+
 angular
   .module("app")
   .config($routeProvider => {
@@ -7,7 +9,7 @@ angular
   })
   .component("refeicoes", {
     templateUrl: "refeicoes.html",
-    controller($http) {
+    controller($http, $location) {
       this.$onInit = () => {
         this.query();
       };
@@ -29,8 +31,8 @@ angular
           });
       };
 
-      this.editar = id => {
-        console.log(id);
+      this.editar = (refeicaoId, alimentoId) => {
+        $location.path(`/refeicoes/${refeicaoId}/alimentos/${alimentoId}`);
       };
     }
   });

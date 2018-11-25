@@ -91,6 +91,9 @@ module.exports = {
       })
       .catch(next);
   },
+  getAlimento(req, res) {
+    res.send(req.alimentoRefeicao);
+  },
   atualizarAlimento(req, res, next) {
     const { alimentoRefeicao, body } = req;
 

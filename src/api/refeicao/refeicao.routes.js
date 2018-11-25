@@ -25,6 +25,7 @@ router.param("alimentoRefeicaoId", api.loadAlimentoRefeicao);
 router
   .route("/refeicoes/:id/alimentos/:alimentoRefeicaoId")
   .all(autho.requiresLocalLogin)
+  .get(api.getAlimento)
   .post(api.atualizarAlimento)
   .delete(api.removerAlimento);
 

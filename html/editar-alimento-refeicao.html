@@ -1,0 +1,27 @@
+<navbar></navbar>
+<div class="container my-4">
+   
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">
+                Editar Alimento
+            </h2>
+        </div>
+        <div class="card-body">
+            <div ng-if="$ctrl.isLoading" class="text-center my-5">
+                <loader></loader>
+            </div>
+            <form ng-if="!$ctrl.isLoading">    
+                <div class="form-group my-2 text-left">
+                    <label for="quantidade">Quantidade (g)</label>
+                    <input type="number" class="form-control" ng-model="$ctrl.alimento.quantidade" required min="0">
+                </div>
+                
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <button type="button" class="btn btn-danger" ng-click="$ctrl.voltar()">Cancelar</button>
+            <button type="submit" class="btn btn-success" ng-click="$ctrl.salvar()">Confirmar</button>
+        </div> 
+    </div>
+</div>
