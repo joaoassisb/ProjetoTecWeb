@@ -12,15 +12,32 @@
         <div class="col-12 col-md-6" ng-repeat="refeicao in $ctrl.refeicoes" >
             <div class="card my-4" ng-if="!$ctrl.isLoading">
                 <div class="card-header">
-                    <h4>
-                        {{refeicao.nome}}
-                    </h4>
+                    <div class="d-flex justify-content-between">
+                        <h4>
+                            {{refeicao.nome}}
+                        </h4>
+                        <h4>
+                           {{refeicao.totalCalorias | number:2}} kcal
+                        </h4>
+                    </div>
                 </div>
         
                 <div class="card-body">
-                    <ul ng-if="refeicao.alimentos.length > 0">
-                        <li ng-repeat="alimentoRefeicao in refeicao.alimentos">
-                            {{alimentoRefeicao.alimento.description}}
+                    <ul class="list-group" ng-if="refeicao.alimentos.length > 0">
+                        <li class="list-group-item" ng-repeat="alimentoRefeicao in refeicao.alimentos">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div >
+                                   {{alimentoRefeicao.quantidade}}g de {{alimentoRefeicao.alimento.description}} - ({{alimentoRefeicao.totalCalorias | number:2}} kcal)
+                                </div>
+                                <div >
+                                    <a class="btn btn-outline-info" ng-click="$ctrl.editar(alimentoRefeicao._id)" href="" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a> 
+                                    <a class="btn btn-outline-danger my-2" ng-click="$ctrl.excluir(refeicao._id, alimentoRefeicao._id)" title="Excluir"> 
+                                        <i class="fas fa-trash"></i> 
+                                    </a>  
+                                </div>
+                            </div>
                         </li>
                     </ul>
                     <div ng-if="refeicao.alimentos.length === 0">

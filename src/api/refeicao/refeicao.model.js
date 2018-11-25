@@ -36,13 +36,12 @@ RefeicaoSchema.pre("save", function(done) {
   this.totalProteinas = 0;
   this.totalLipidios = 0;
 
-  this.alimentos.forEach(alimento => {
-    this.totalCalorias += alimento.totalCalorias;
-    this.totalProteinas += alimento.totalProteinas;
-    this.totalCarboidratos += alimento.totalCarboidratos;
-    this.totalLipidios += alimento.totalLipidios;
+  this.alimentos.forEach(alimentoRefeicao => {
+    this.totalCalorias += alimentoRefeicao.totalCalorias;
+    this.totalProteinas += alimentoRefeicao.totalProteinas;
+    this.totalCarboidratos += alimentoRefeicao.totalCarboidratos;
+    this.totalLipidios += alimentoRefeicao.totalLipidios;
   });
-
   done();
 });
 

@@ -21,4 +21,11 @@ router
   .all(autho.requiresLocalLogin)
   .post(api.adicionarAlimento);
 
+router.param("alimentoRefeicaoId", api.loadAlimentoRefeicao);
+router
+  .route("/refeicoes/:id/alimentos/:alimentoRefeicaoId")
+  .all(autho.requiresLocalLogin)
+  .post(api.atualizarAlimento)
+  .delete(api.removerAlimento);
+
 module.exports = router;

@@ -17,8 +17,20 @@ angular
         $http.get("/api/refeicoes").then(({ data }) => {
           this.isLoading = false;
           this.refeicoes = data;
-          console.log(this.refeicoes);
         });
+      };
+
+      this.excluir = (refeicaoId, alimentoId) => {
+        this.isLoading = true;
+        $http
+          .delete(`/api/refeicoes/${refeicaoId}/alimentos/${alimentoId}`)
+          .then(() => {
+            this.query();
+          });
+      };
+
+      this.editar = id => {
+        console.log(id);
       };
     }
   });

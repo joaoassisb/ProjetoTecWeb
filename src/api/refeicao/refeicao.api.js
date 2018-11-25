@@ -48,14 +48,16 @@ module.exports = {
       .catch(next);
   },
   load(req, res, next, id) {
-    Refeicao.findById(id).then(refeicao => {
-      if (!refeicao) {
-        return next(createError(404, "Alimento de Usuário não encontrado"));
-      }
+    Refeicao.findById(id)
+      .populate("alimentos")
+      .then(refeicao => {
+        if (!refeicao) {
+          return next(createError(404, "Refeição Usuário não encontrado"));
+        }
 
-      req.refeicao = refeicao;
-      next();
-    });
+        req.refeicao = refeicao;
+        next();
+      });
   },
   get(req, res) {
     res.send(req.refeicao);
@@ -74,6 +76,41 @@ module.exports = {
         refeicao.save().then(() => {
           res.send(refeicao);
         });
+      })
+      .catch(next);
+  },
+  loadAlimentoRefeicao(req, res, next, alimentoRefeicaoId) {
+    AlimentoRefeicao.findById(alimentoRefeicaoId)
+      .then(alimentoRefeicao => {
+        if (!alimentoRefeicao) {
+          return next(createError(404, "Alimento de refeição não encontrado"));
+        }
+
+        req.alimentoRefeicao = alimentoRefeicao;
+        next();
+      })
+      .catch(next);
+  },
+  atualizarAlimento(req, res, next) {
+    const { alimentoRefeicao, body } = req;
+
+    Object.assign(alimentoRefeicao, body);
+
+    alimentoRefeicao
+      .save()
+      .then(() => {
+        res.send(alimentoRefeicao);
+      })
+      .catch(next);
+  },
+  removerAlimento(req, res, next) {
+    const { refeicao, alimentoRefeicao } = req;
+
+    refeicao.alimentos.pull(alimentoRefeicao._id);
+
+    Promise.all([refeicao.save(), alimentoRefeicao.remove()])
+      .then(([refeicao]) => {
+        res.send(refeicao);
       })
       .catch(next);
   }

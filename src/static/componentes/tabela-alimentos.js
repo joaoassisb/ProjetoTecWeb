@@ -11,7 +11,6 @@ angular.module("app").component("tabelaAlimentos", {
       this.query().then(({ data }) => {
         this.isLoading = false;
         this.alimentos = data;
-
         this.atualizarFiltros();
       });
     };

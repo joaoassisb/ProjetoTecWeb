@@ -12,6 +12,7 @@ const AlimentoRefeicaoSchema = new Schema({
     type: String,
     required: true
   },
+  quantidade: Number,
   totalCalorias: Number,
   totalProteinas: Number,
   totalCarboidratos: Number,
