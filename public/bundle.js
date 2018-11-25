@@ -31,8 +31,12 @@
         this.login = () => {
           this.isLoading = true;
           Auth.login(this.usuario).then(
-            () => {
-              $location.path("/home");
+            usuario => {
+              if (usuario.isAdmin) {
+                $location.path("/home-admin");
+              } else {
+                $location.path("/perfil-usuario");
+              }
             },
             () => {
               this.loginInvalido = true;
@@ -259,6 +263,25 @@
       };
     }
   });
+
+  angular
+    .module("app")
+    .config($routeProvider => {
+      $routeProvider.when("/admin/usuarios", {
+        template: "<usuarios>"
+      });
+      $routeProvider.when("/admin/usuarios/:id", {
+        template: "<usuario>"
+      });
+    })
+    .component("navbarAdmin", {
+      templateUrl: "navbar-admin.html",
+      controller($location, Auth) {
+        this.navegar = componentName => {
+          $location.path(componentName);
+        };
+      }
+    });
 
   angular
     .module("app")
@@ -697,6 +720,79 @@
           return $http.get("/api/alimentos");
         };
       }
+    });
+
+  angular.module("app").component("usuarios", {
+    templateUrl: "usuarios.html",
+    controller($http, $location) {
+      this.$onInit = () => {
+        this.query();
+      };
+
+      this.query = () => {
+        this.isLoading = true;
+        $http.get("/api/usuarios").then(({ data }) => {
+          this.usuarios = data;
+          this.isLoading = false;
+        });
+      };
+
+      this.exibirUsuario = usuarioId => {
+        $location.path(`/admin/usuarios/${usuarioId}`);
+      };
+
+      this.removerUsuario = usuarioId => {
+        this.isLoading = true;
+        $http.delete(`/api/usuarios/${usuarioId}`).then(() => {
+          this.query();
+        });
+      };
+    }
+  });
+
+  angular.module("app").component("usuario", {
+    templateUrl: "usuario.html",
+    controller($http, $location, $routeParams) {
+      this.$onInit = () => {
+        this.query();
+      };
+
+      this.query = () => {
+        this.isLoading = true;
+        $http.get(`/api/usuarios/${$routeParams.id}`).then(({ data }) => {
+          this.usuario = data;
+          this.isLoading = false;
+          console.log(data);
+        });
+      };
+
+      this.voltar = () => {
+        $location.path("/admin/usuarios");
+      };
+
+      this.tornarAdmin = () => {
+        this.isLoading = true;
+        $http
+          .post(`/api/usuarios/${this.usuario._id}`, {
+            isAdmin: true
+          })
+          .then(() => {
+            this.query();
+          });
+      };
+    }
+  });
+
+  angular
+    .module("app")
+    .config($routeProvider => {
+      $routeProvider.when("/home-admin", {
+        template: "<home-admin>"
+      });
+    })
+    .component("homeAdmin", {
+      templateUrl: "home-admin.html",
+      controller($http, $location) {}
     });
 
   const m$1 = angular.module("app");

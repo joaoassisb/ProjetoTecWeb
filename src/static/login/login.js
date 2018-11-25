@@ -15,8 +15,12 @@ angular
       this.login = () => {
         this.isLoading = true;
         Auth.login(this.usuario).then(
-          () => {
-            $location.path("/home");
+          usuario => {
+            if (usuario.isAdmin) {
+              $location.path("/home-admin");
+            } else {
+              $location.path("/perfil-usuario");
+            }
           },
           () => {
             this.loginInvalido = true;

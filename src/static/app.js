@@ -8,10 +8,12 @@ import "./componentes/navbar";
 import "./componentes/loader";
 import "./componentes/infos-alimento";
 import "./componentes/tabela-alimentos";
+import "./componentes/navbar-admin";
 import "./perfil-usuario/perfil-usuario";
 import "./resultados/resultados";
 import "./refeicoes-diarias/refeicoes-diarias";
 import "./alimentos/alimentos";
+import "./admin/home-admin";
 
 const m = angular.module("app");
 

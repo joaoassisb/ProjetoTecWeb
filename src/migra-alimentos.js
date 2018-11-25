@@ -7,6 +7,12 @@ const Alimento = mongoose.model("Alimento");
 const AlimentoRefeicao = mongoose.model("AlimentoRefeicao");
 const Refeicao = mongoose.model("Refeicao");
 
+const Usuario = mongoose.model("Usuario");
+
+Usuario.findOne({ email: "joao_assisb@hotmail.com" }).then(usuario => {
+  console.log(usuario);
+});
+
 // AlimentoRefeicao.find().then(data => {
 //   console.log(data);
 // });

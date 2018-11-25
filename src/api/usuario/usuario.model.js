@@ -40,6 +40,11 @@ const UsuarioSchema = new mongoose.Schema({
   },
   social: {
     facebook: String
+  },
+  isAdmin: {
+    type: Boolean,
+    required: true,
+    default: false
   }
 });
 

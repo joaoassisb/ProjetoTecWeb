@@ -156,7 +156,12 @@ module.exports = function(app, options) {
         .catch(next);
     },
     (req, res) => {
-      res.sendStatus(200);
+      res.send({
+        name: req.user.name,
+        email: req.user.email,
+        id: req.user._id,
+        isAdmin: req.user.isAdmin
+      });
     }
   );
 
@@ -179,7 +184,8 @@ module.exports = function(app, options) {
     res.send({
       name: req.user.name,
       email: req.user.email,
-      id: req.user._id
+      id: req.user._id,
+      isAdmin: req.user.isAdmin
     });
   });
 

@@ -1,0 +1,52 @@
+<navbar-admin></navbar-admin>
+<div class="container">
+
+    <div class="text-center my-4">
+        <h2 class="col-12 col-md-4">Usuários</h2>
+    </div>
+    <div class="text-center my-4" ng-if="$ctrl.isLoading">
+        <loader></loader>
+    </div>
+    
+        <div class="table-responsive" ng-if="!$ctrl.isLoading">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <strong>Nome</strong>
+                        </th>
+                        <th class="d-none d-sm-block">
+                            <strong>Email</strong>
+                        </th>
+                        <th>
+                            <strong>Admin</strong>
+                        </th>
+                        <th class="text-right">
+                            <strong>Ações</strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="usuario in $ctrl.usuarios" >
+                        <td>
+                            {{usuario.name}}
+                        </td>
+                        <td class="d-none d-sm-block">
+                            {{usuario.email}}
+                        </td>
+                        <td>
+                            {{usuario.isAdmin ? 'Sim': 'Não'}}
+                        </td>
+                        <td class="text-right">    
+                            <a class="btn btn-outline-info" ng-click="$ctrl.exibirUsuario(usuario._id)" href="" title="Exibir Detalhes">
+                                <i class="fas fa-search-plus"></i>
+                            </a>
+                            <a class="btn btn-outline-danger" ng-click="$ctrl.removerUsuario(usuario._id)" href="" title="Excluir">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+</div>
