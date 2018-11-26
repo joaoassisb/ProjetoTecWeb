@@ -887,17 +887,11 @@
     }
   });
 
-  angular
-    .module("app")
-    .config($routeProvider => {
-      $routeProvider.when("/home-admin", {
-        template: "<home-admin>"
-      });
-    })
-    .component("homeAdmin", {
-      templateUrl: "home-admin.html",
-      controller($http, $location) {}
+  angular.module("app").config($routeProvider => {
+    $routeProvider.when("/home-admin", {
+      template: "<usuarios>"
     });
+  });
 
   const m$1 = angular.module("app");
 
