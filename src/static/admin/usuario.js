@@ -10,7 +10,6 @@ angular.module("app").component("usuario", {
       $http.get(`/api/usuarios/${$routeParams.id}`).then(({ data }) => {
         this.usuario = data;
         this.isLoading = false;
-        console.log(data);
       });
     };
 

@@ -2,12 +2,19 @@ angular.module("app").component("tabelaAlimentos", {
   templateUrl: "tabela-alimentos.html",
   bindings: {
     query: "&",
-    titulo: "<"
+    titulo: "<",
+    isAdmin: "<",
+    excluirAlimento: "&",
+    shouldUpdate: "<"
   },
   controller($filter, $location, $http) {
     this.$onInit = () => {
       this.isLoading = true;
       this.queryRefeicoes();
+      this.getData();
+    };
+
+    this.getData = () => {
       this.query().then(({ data }) => {
         this.isLoading = false;
         this.alimentos = data;
@@ -30,11 +37,18 @@ angular.module("app").component("tabelaAlimentos", {
     };
 
     this.novoAlimento = () => {
-      $location.path("/novo-alimento");
+      console.log(this.isAdmin);
+      if (this.isAdmin) {
+        $location.path("/admin/novo-alimento");
+      } else {
+        $location.path("/novo-alimento");
+      }
     };
 
     this.exibirAlimento = id => {
-      if (this.titulo === "Alimentos") {
+      if (this.isAdmin) {
+        $location.path(`/admin/alimentos/${id}`);
+      } else if (this.titulo === "Alimentos") {
         $location.path(`/alimentos/${id}`);
       } else {
         $location.path(`/meus-alimentos/${id}`);
@@ -58,6 +72,13 @@ angular.module("app").component("tabelaAlimentos", {
         `/api/refeicoes/${this.refeicao._id}/alimentos`,
         alimentoRefeicao
       );
+    };
+
+    this.excluir = id => {
+      this.isLoading = true;
+      this.excluirAlimento({ alimentoId: id }).then(() => {
+        this.getData();
+      });
     };
   }
 });

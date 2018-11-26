@@ -204,12 +204,19 @@
     templateUrl: "tabela-alimentos.html",
     bindings: {
       query: "&",
-      titulo: "<"
+      titulo: "<",
+      isAdmin: "<",
+      excluirAlimento: "&",
+      shouldUpdate: "<"
     },
     controller($filter, $location, $http) {
       this.$onInit = () => {
         this.isLoading = true;
         this.queryRefeicoes();
+        this.getData();
+      };
+
+      this.getData = () => {
         this.query().then(({ data }) => {
           this.isLoading = false;
           this.alimentos = data;
@@ -232,11 +239,18 @@
       };
 
       this.novoAlimento = () => {
-        $location.path("/novo-alimento");
+        console.log(this.isAdmin);
+        if (this.isAdmin) {
+          $location.path("/admin/novo-alimento");
+        } else {
+          $location.path("/novo-alimento");
+        }
       };
 
       this.exibirAlimento = id => {
-        if (this.titulo === "Alimentos") {
+        if (this.isAdmin) {
+          $location.path(`/admin/alimentos/${id}`);
+        } else if (this.titulo === "Alimentos") {
           $location.path(`/alimentos/${id}`);
         } else {
           $location.path(`/meus-alimentos/${id}`);
@@ -260,6 +274,13 @@
           `/api/refeicoes/${this.refeicao._id}/alimentos`,
           alimentoRefeicao
         );
+      };
+
+      this.excluir = id => {
+        this.isLoading = true;
+        this.excluirAlimento({ alimentoId: id }).then(() => {
+          this.getData();
+        });
       };
     }
   });
@@ -762,7 +783,6 @@
         $http.get(`/api/usuarios/${$routeParams.id}`).then(({ data }) => {
           this.usuario = data;
           this.isLoading = false;
-          console.log(data);
         });
       };
 
@@ -779,6 +799,90 @@
           .then(() => {
             this.query();
           });
+      };
+    }
+  });
+
+  angular
+    .module("app")
+    .config($routeProvider => {
+      $routeProvider
+        .when("/admin/alimentos/", {
+          template: "<alimentos-admin>"
+        })
+        .when("/admin/alimentos/:id", {
+          template: "<editar-alimento-admin>"
+        })
+        .when("/admin/novo-alimento", {
+          template: "<editar-alimento-admin>"
+        });
+    })
+    .component("alimentosAdmin", {
+      templateUrl: "alimentos-admin.html",
+      controller($http, $filter, $location) {
+        this.$onInit = () => {
+          this.isAdmin = true;
+        };
+        this.query = () => {
+          return $http.get("/api/alimentos");
+        };
+
+        this.excluir = alimentoId => {
+          return $http.delete(`/api/alimentos/${alimentoId}`);
+        };
+      }
+    });
+
+  angular.module("app").component("editarAlimentoAdmin", {
+    templateUrl: "editar-alimento-admin.html",
+    controller($http, $location, $routeParams) {
+      this.$onInit = () => {
+        if ($routeParams.id) {
+          this.ehNovo = false;
+          this.query();
+        } else {
+          this.ehNovo = true;
+        }
+      };
+      this.categorias = [
+        "Alimentos preparados",
+        "Bebidas(alcoólicas e não alcoólicas)",
+        "Carnes e derivados",
+        "Cereais e derivados",
+        "Frutas e derivados",
+        "Gorduras e óleos",
+        "Leguminosas e derivados",
+        "Leite e derivados",
+        "Nozes e sementes",
+        "Outros alimentos industrializados",
+        "Ovos e derivados",
+        "Pescados e frutos do mar",
+        "Produtos açucarados",
+        "Verduras, hortaliças e derivados"
+      ];
+
+      this.query = () => {
+        this.isLoading = true;
+        $http.get(`/api/alimentos/${$routeParams.id}`).then(({ data }) => {
+          this.alimento = data;
+          this.isLoading = false;
+        });
+      };
+
+      this.salvar = () => {
+        this.isLoading = true;
+        $http
+          .post(
+            `/api/alimentos/${this.ehNovo ? "" : this.alimento._id}`,
+            this.alimento
+          )
+          .then(() => {
+            this.voltar();
+          });
+      };
+
+      this.voltar = () => {
+        $location.path("/admin/alimentos");
       };
     }
   });

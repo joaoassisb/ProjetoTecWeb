@@ -17,7 +17,7 @@
 <div class="text-center my-4" ng-if="$ctrl.isLoading">
     <loader></loader>
 </div>
-<div class="table-responsive" ng-if="!$ctrl.isLoading">
+<div class="table-responsive" ng-if="!$ctrl.isLoading ">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -48,13 +48,19 @@
                     {{alimento.energy_kcal | number :2}}
                 </td>
                 <td class="text-right">    
-                    <a class="btn btn-outline-info" ng-click="$ctrl.exibirAlimento(alimento._id)" href="" title="Exibir Detalhes">
+                    <a class="btn btn-outline-info" ng-click="$ctrl.exibirAlimento(alimento._id)" href="" title="Exibir Detalhes"  ng-if="!$ctrl.isAdmin">
                         <i class="fas fa-search-plus"></i>
                     </a>
-                    <a class="btn btn-outline-secondary my-2" data-toggle="modal" data-target="#modalAdicao-{{alimento._id}}" title="Adicionar a refeição"> 
+                    <a class="btn btn-outline-secondary my-2" data-toggle="modal" data-target="#modalAdicao-{{alimento._id}}" title="Adicionar a refeição" ng-if="!$ctrl.isAdmin"> 
                         <i class="fas fa-utensils"></i>
                     </a> 
-
+                    <a class="btn btn-outline-info my-2" title="Excluir alimento" ng-if="$ctrl.isAdmin" ng-click="$ctrl.exibirAlimento(alimento._id)"> 
+                        <i class="fas fa-edit"></i>
+                    </a> 
+                    <a class="btn btn-outline-danger my-2" title="Excluir alimento" ng-if="$ctrl.isAdmin" ng-click="$ctrl.excluir(alimento._id)"> 
+                        <i class="fas fa-trash"></i>
+                    </a> 
+    
                     <div class="modal fade" id="modalAdicao-{{alimento._id}}" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">

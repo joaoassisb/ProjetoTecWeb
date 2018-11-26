@@ -24,9 +24,51 @@ module.exports = {
       next();
     });
   },
+  create(req, res, next) {
+    if (!req.user.isAdmin) {
+      return next(createError(401, "Somente admins podem criar alimentos"));
+    }
+
+    const alimento = new Alimento(req.body);
+
+    alimento.save().then(() => {
+      res.send(alimento);
+    });
+  },
   get(req, res) {
     const { alimento } = req;
 
     res.send(alimento);
+  },
+  update(req, res, next) {
+    if (!req.user.isAdmin) {
+      return next(createError(401, "Somente admins podem atualizar alimentos"));
+    }
+
+    const { alimento } = req;
+    const { body } = req;
+
+    Object.assign(alimento, body);
+
+    alimento
+      .save()
+      .then(() => {
+        res.send(alimento);
+      })
+      .catch(next);
+  },
+  remove(req, res, next) {
+    if (!req.user.isAdmin) {
+      return next(createError(401, "Somente admins podem excluir alimentos"));
+    }
+
+    const { alimento } = req;
+
+    alimento
+      .remove()
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch(next);
   }
 };
